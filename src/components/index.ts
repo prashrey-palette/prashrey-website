@@ -1,0 +1,13 @@
+export { default as AnimatedPolygonBackground } from "./AnimatedPolygonBackground";
+export { default as Navbar } from "./Navbar";
+export { default as HeroSection } from "./HeroSection";
+export { default as ArtworkGrid } from "./ArtworkGrid";
+export { default as ArtworkCard } from "./ArtworkCard";
+export { default as CategoryFilter } from "./CategoryFilter";
+export { default as CollectionSection } from "./CollectionSection";
+export { default as AboutSection } from "./AboutSection";
+export { default as TestimonialsSection } from "./TestimonialsSection";
+export { default as ContactSection } from "./ContactSection";
+export { default as Footer } from "./Footer";
+export { default as ModalArtworkViewer } from "./ModalArtworkViewer";
+export { default as ScrollReveal } from "./ScrollReveal";
