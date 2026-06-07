@@ -35,7 +35,7 @@ export default function ArtworkCard({
       tabIndex={0}
       aria-label={`View ${artwork.title}`}
     >
-      <div className="relative overflow-hidden rounded-lg border border-white/5 bg-[#121214]/50">
+      <div className="relative overflow-hidden rounded-lg border border-white/5 bg-[#121214]/50 shadow-lg shadow-black/20 transition-all duration-500 group-hover:border-[#c9a962]/25 group-hover:shadow-[#c9a962]/5">
         <div className="aspect-[4/5] overflow-hidden sm:aspect-[3/4]">
           <img
             src={artwork.image}
@@ -53,8 +53,11 @@ export default function ArtworkCard({
           <h3 className="mt-1 font-display text-xl text-[#f4f1ec]">
             {artwork.title}
           </h3>
-          <p className="mt-2 font-sans text-xs text-[#f4f1ec]/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <p className="mt-1.5 font-sans text-xs text-[#f4f1ec]/60">
             {artwork.medium} · {artwork.year}
+          </p>
+          <p className="mt-2 line-clamp-2 font-sans text-xs leading-relaxed text-[#f4f1ec]/45 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {artwork.description}
           </p>
         </div>
       </div>

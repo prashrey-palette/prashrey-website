@@ -54,7 +54,9 @@ export default function ModalArtworkViewer({
               <img
                 src={artwork.image}
                 alt={artwork.title}
-                className="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-contain bg-[#08080a]"
               />
             </div>
             <div className="flex flex-col justify-center overflow-y-auto p-8 md:p-10">
