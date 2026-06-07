@@ -1,20 +1,21 @@
 export type ArtworkCategory =
-  | "Abstract"
-  | "Portrait"
-  | "Landscape"
-  | "Sketches"
+  | "Acrylic"
+  | "Watercolor"
+  | "Oil"
+  | "Sketch"
   | "Mixed Media"
   | "Digital Art";
 
 export type Artwork = {
-  id: string;
+  id: number;
   title: string;
   category: ArtworkCategory;
+  medium: string;
+  year: string;
+  dimensions: string;
   image: string;
   description: string;
-  medium: string;
-  dimensions: string;
-  year: number;
+  featured: boolean;
 };
 
 export type Collection = {

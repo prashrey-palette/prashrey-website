@@ -29,8 +29,8 @@ export default function ArtworkGrid() {
             Selected Works
           </h2>
           <p className="mx-auto mt-4 max-w-lg font-sans text-sm text-[#f4f1ec]/50">
-            A curated glimpse into abstract, figurative, and experimental
-            pieces from the studio.
+            Acrylic, watercolor, oil, sketch, and mixed-media works from the
+            studio — explore the full collection below.
           </p>
         </ScrollReveal>
 
