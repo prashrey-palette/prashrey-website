@@ -1,6 +1,7 @@
 /**
  * Scans public/artworks/ and generates src/data/artworks.js.
- * Preserves existing metadata (title, category, etc.) when re-run.
+ * Groups variant files (Name_1, Name _2, etc.) into a single artwork entry.
+ * Preserves existing metadata when re-run.
  *
  * Usage: node scripts/generate-artworks.mjs
  */
@@ -14,6 +15,7 @@ const ARTWORKS_DIR = join(ROOT, "public", "artworks");
 const OUTPUT = join(ROOT, "src", "data", "artworks.js");
 
 const IMAGE_EXT = /\.(jpe?g|png|gif|webp|avif)$/i;
+const VARIANT_SUFFIX = /^(.+?)[\s_]+(\d+)$/i;
 
 const CATEGORIES = [
   "Acrylic",
@@ -33,74 +35,135 @@ const CATEGORY_MEDIUM = {
   "Digital Art": "Digital illustration",
 };
 
-function titleFromFilename(filename) {
-  const base = filename.replace(/\.[^.]+$/, "");
-  if (/^[0-9A-F]{8}-/i.test(base)) {
-    return null;
+function normalizeGroupKey(name) {
+  return name.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function parseFilename(filename) {
+  const ext = filename.match(/\.[^.]+$/i)?.[0] ?? "";
+  const stem = filename.slice(0, -ext.length);
+  const variantMatch = stem.match(VARIANT_SUFFIX);
+
+  if (variantMatch) {
+    return {
+      filename,
+      baseName: variantMatch[1].trim(),
+      variant: Number.parseInt(variantMatch[2], 10),
+      groupKey: normalizeGroupKey(variantMatch[1]),
+    };
   }
-  return base
-    .replace(/[-_]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  return {
+    filename,
+    baseName: stem.trim(),
+    variant: 0,
+    groupKey: normalizeGroupKey(stem),
+  };
 }
 
 function imagePath(filename) {
   return `/artworks/${encodeURIComponent(filename)}`;
 }
 
-async function loadExistingMetadata() {
-  try {
-    const content = await readFile(OUTPUT, "utf8");
-    const map = new Map();
-    const entryRegex =
-      /image:\s*"\/artworks\/([^"]+)"[\s\S]*?title:\s*"([^"]*)"[\s\S]*?category:\s*"([^"]*)"[\s\S]*?medium:\s*"([^"]*)"[\s\S]*?year:\s*"([^"]*)"[\s\S]*?dimensions:\s*"([^"]*)"[\s\S]*?description:\s*"([^"]*)"[\s\S]*?featured:\s*(true|false)/g;
-    let match;
-    while ((match = entryRegex.exec(content)) !== null) {
-      const encoded = match[1];
-      const filename = decodeURIComponent(encoded);
-      map.set(filename, {
-        title: match[2],
-        category: match[3],
-        medium: match[4],
-        year: match[5],
-        dimensions: match[6],
-        description: match[7],
-        featured: match[8] === "true",
-      });
-    }
-    return map;
-  } catch {
-    return new Map();
+function titleFromBaseName(baseName) {
+  if (/^[0-9A-F]{8}-/i.test(baseName)) {
+    return null;
   }
+
+  return baseName
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function escapeString(str) {
   return str.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
 
+async function loadExistingMetadata() {
+  try {
+    const content = await readFile(OUTPUT, "utf8");
+    const map = new Map();
+    const blockRegex =
+      /\{[\s\S]*?id:\s*(\d+),[\s\S]*?title:\s*"([^"]*)"[\s\S]*?category:\s*"([^"]*)"[\s\S]*?medium:\s*"([^"]*)"[\s\S]*?year:\s*"([^"]*)"[\s\S]*?dimensions:\s*"([^"]*)"[\s\S]*?image:\s*"\/artworks\/([^"]+)"[\s\S]*?description:\s*"([^"]*)"[\s\S]*?featured:\s*(true|false)/g;
+
+    let match;
+    while ((match = blockRegex.exec(content)) !== null) {
+      const primaryFilename = decodeURIComponent(match[8]);
+      const parsed = parseFilename(primaryFilename);
+      const meta = {
+        id: Number.parseInt(match[1], 10),
+        title: match[2],
+        category: match[3],
+        medium: match[4],
+        year: match[5],
+        dimensions: match[6],
+        description: match[9],
+        featured: match[10] === "true",
+      };
+
+      map.set(parsed.groupKey, meta);
+      map.set(primaryFilename, meta);
+    }
+
+    return map;
+  } catch {
+    return new Map();
+  }
+}
+
+function groupFiles(files) {
+  const groups = new Map();
+
+  for (const filename of files) {
+    const parsed = parseFilename(filename);
+    if (!groups.has(parsed.groupKey)) {
+      groups.set(parsed.groupKey, []);
+    }
+    groups.get(parsed.groupKey).push(parsed);
+  }
+
+  return [...groups.entries()]
+    .map(([groupKey, entries]) => {
+      entries.sort((a, b) => a.variant - b.variant);
+      const primary =
+        entries.find((entry) => entry.variant === 0) ?? entries[0];
+      const images = entries.map((entry) => imagePath(entry.filename));
+
+      return {
+        groupKey,
+        baseName: primary.baseName,
+        primaryFilename: primary.filename,
+        images,
+      };
+    })
+    .sort((a, b) =>
+      a.baseName.localeCompare(b.baseName, undefined, {
+        sensitivity: "base",
+      }),
+    );
+}
+
 async function main() {
   const files = (await readdir(ARTWORKS_DIR))
     .filter((f) => IMAGE_EXT.test(f))
-    .sort((a, b) => {
-      const aNamed = !/^[0-9A-F]{8}-/i.test(a);
-      const bNamed = !/^[0-9A-F]{8}-/i.test(b);
-      if (aNamed !== bNamed) return aNamed ? -1 : 1;
-      return a.localeCompare(b, undefined, { sensitivity: "base" });
-    });
+    .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 
   const existing = await loadExistingMetadata();
+  const groups = groupFiles(files);
   let untitledCount = 0;
 
-  const artworks = files.map((filename, index) => {
-    const saved = existing.get(filename);
-    const derivedTitle = titleFromFilename(filename);
+  const artworks = groups.map((group, index) => {
+    const saved =
+      existing.get(group.groupKey) ?? existing.get(group.primaryFilename);
+    const derivedTitle = titleFromBaseName(group.baseName);
     const category =
       saved?.category && CATEGORIES.includes(saved.category)
         ? saved.category
         : CATEGORIES[index % CATEGORIES.length];
 
-  if (!derivedTitle) untitledCount += 1;
+    if (!derivedTitle) untitledCount += 1;
 
     const defaultTitle =
       derivedTitle ?? `Studio Piece ${String(untitledCount).padStart(2, "0")}`;
@@ -112,7 +175,8 @@ async function main() {
       medium: saved?.medium ?? CATEGORY_MEDIUM[category],
       year: saved?.year ?? "2025",
       dimensions: saved?.dimensions ?? "—",
-      image: imagePath(filename),
+      image: group.images[0],
+      images: group.images,
       description:
         saved?.description ??
         (derivedTitle
@@ -126,6 +190,8 @@ async function main() {
  * Artwork gallery data for Prashrey Palette Art Studio.
  *
  * ADD NEW IMAGES: drop files into public/artworks/
+ *   - Base image:   My Artwork.PNG
+ *   - Extra views:  My Artwork_1.PNG, My Artwork _2.PNG  (grouped automatically)
  * EDIT METADATA: update title, category, medium, year, dimensions, description below
  * REGENERATE LIST: npm run generate:artworks (preserves your metadata edits)
  *
@@ -141,19 +207,24 @@ export const artworks = [
 `;
 
   const body = artworks
-    .map(
-      (a) => `  {
+    .map((a) => {
+      const imagesField =
+        a.images.length > 1
+          ? `\n    images: [\n${a.images.map((img) => `      "${img}",`).join("\n")}\n    ],`
+          : "";
+
+      return `  {
     id: ${a.id},
     title: "${escapeString(a.title)}",
     category: "${escapeString(a.category)}",
     medium: "${escapeString(a.medium)}",
     year: "${escapeString(a.year)}",
     dimensions: "${escapeString(a.dimensions)}",
-    image: "${a.image}",
+    image: "${a.image}",${imagesField}
     description: "${escapeString(a.description)}",
     featured: ${a.featured},
-  }`,
-    )
+  }`;
+    })
     .join(",\n");
 
   const footer = `
@@ -161,7 +232,9 @@ export const artworks = [
 `;
 
   await writeFile(OUTPUT, header + body + footer, "utf8");
-  console.log(`Generated ${artworks.length} artworks → src/data/artworks.js`);
+  console.log(
+    `Generated ${artworks.length} artworks from ${files.length} images → src/data/artworks.js`,
+  );
 }
 
 main().catch((err) => {
