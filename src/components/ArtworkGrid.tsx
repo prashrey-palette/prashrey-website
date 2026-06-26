@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
 import { artworks, artworkCategories } from "../data/artworks";
 import type { ArtworkCategory } from "../types/artwork";
@@ -41,13 +40,11 @@ export default function ArtworkGrid() {
         </ScrollReveal>
 
         <div className="mt-14 columns-1 gap-6 sm:columns-2 lg:columns-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((artwork, index) => (
-              <div key={artwork.id} className="mb-6">
-                <ArtworkCard artwork={artwork} index={index} />
-              </div>
-            ))}
-          </AnimatePresence>
+          {filtered.map((artwork, index) => (
+            <div key={artwork.id} className="mb-6">
+              <ArtworkCard artwork={artwork} index={index} />
+            </div>
+          ))}
         </div>
 
         {filtered.length === 0 && (

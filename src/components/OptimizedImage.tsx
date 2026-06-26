@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type OptimizedImageProps = {
   src: string;
@@ -19,7 +19,16 @@ function artworkBaseName(src: string) {
 
 function webpSrc(base: string, width?: number) {
   const suffix = width ? `-${width}` : "";
-  return `/artworks/webp/${encodeURIComponent(base)}${suffix}.webp`;
+  return `/artworks/webp/${base}${suffix}.webp`;
+}
+
+function markLoaded(
+  img: HTMLImageElement | null,
+  setLoaded: (v: boolean) => void,
+) {
+  if (img?.complete && img.naturalWidth > 0) {
+    setLoaded(true);
+  }
 }
 
 export default function OptimizedImage({
@@ -30,39 +39,56 @@ export default function OptimizedImage({
   priority = false,
   objectFit = "cover",
 }: OptimizedImageProps) {
+  const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
   const base = artworkBaseName(src);
   const fitClass = objectFit === "contain" ? "object-contain" : "object-cover";
 
-  const imgClasses = `${fitClass} h-full w-full transition-opacity duration-500 ${
+  useEffect(() => {
+    setLoaded(false);
+    setUseFallback(false);
+  }, [src]);
+
+  useEffect(() => {
+    markLoaded(imgRef.current, setLoaded);
+  }, [src, useFallback]);
+
+  const imgClasses = `${fitClass} h-full w-full transition-opacity duration-300 ${
     loaded ? "opacity-100" : "opacity-0"
   } ${className}`;
 
-  const placeholder = (
-    <div
-      className="absolute inset-0 animate-pulse bg-[#121214]"
-      aria-hidden
-    />
+  const handleLoad = () => setLoaded(true);
+
+  const handleError = () => {
+    if (!useFallback) {
+      setUseFallback(true);
+      setLoaded(false);
+    }
+  };
+
+  const placeholder = !loaded && (
+    <div className="absolute inset-0 bg-[#121214]" aria-hidden />
   );
 
-  if (base) {
+  if (base && !useFallback) {
     const srcSet = WIDTHS.map((w) => `${webpSrc(base, w)} ${w}w`).join(", ");
-    const fallbackWebp = webpSrc(base);
 
     return (
       <div className="relative h-full w-full overflow-hidden bg-[#121214]">
-        {!loaded && placeholder}
+        {placeholder}
         <picture className="block h-full w-full">
           <source srcSet={srcSet} type="image/webp" sizes={sizes} />
-          <source srcSet={fallbackWebp} type="image/webp" />
           <img
+            ref={imgRef}
             src={src}
             alt={alt}
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             fetchPriority={priority ? "high" : "auto"}
             sizes={sizes}
-            onLoad={() => setLoaded(true)}
+            onLoad={handleLoad}
+            onError={handleError}
             className={`relative ${imgClasses}`}
           />
         </picture>
@@ -72,15 +98,17 @@ export default function OptimizedImage({
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#121214]">
-      {!loaded && placeholder}
+      {placeholder}
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         fetchPriority={priority ? "high" : "auto"}
         sizes={sizes}
-        onLoad={() => setLoaded(true)}
+        onLoad={handleLoad}
+        onError={handleError}
         className={`relative ${imgClasses}`}
       />
     </div>

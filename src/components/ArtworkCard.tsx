@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import type { Artwork } from "../types/artwork";
 import OptimizedImage from "./OptimizedImage";
@@ -12,17 +11,11 @@ export default function ArtworkCard({ artwork, index = 0 }: ArtworkCardProps) {
   const imageCount = artwork.images?.length ?? 1;
 
   return (
-    <motion.article
-      layout
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.96 }}
-      transition={{
-        duration: 0.45,
-        delay: index * 0.04,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+    <article
       className="group break-inside-avoid"
+      style={{
+        animation: `fadeIn 0.5s ease ${index * 0.04}s both`,
+      }}
     >
       <Link
         to={`/portfolio/${artwork.id}`}
@@ -59,6 +52,6 @@ export default function ArtworkCard({ artwork, index = 0 }: ArtworkCardProps) {
           </div>
         </div>
       </Link>
-    </motion.article>
+    </article>
   );
 }
