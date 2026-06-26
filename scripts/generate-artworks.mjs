@@ -1,6 +1,6 @@
 /**
  * Scans public/artworks/ and generates src/data/artworks.js.
- * Groups variant files (Name_1, Name _2, etc.) into a single artwork entry.
+ * Groups variant files (Name, Name_1, Name _2, etc.) into a single artwork entry.
  * Preserves existing metadata when re-run.
  *
  * Usage: node scripts/generate-artworks.mjs
@@ -35,8 +35,16 @@ const CATEGORY_MEDIUM = {
   "Digital Art": "Digital illustration",
 };
 
+/** Normalize names so "Autumn's Lullaby", "Autumns Lullaby_1", "Radha-Krishna" group together. */
 function normalizeGroupKey(name) {
-  return name.trim().toLowerCase().replace(/\s+/g, " ");
+  return name
+    .trim()
+    .toLowerCase()
+    .replace(/[''`´]/g, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/[^\w\s:]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function parseFilename(filename) {
@@ -45,19 +53,21 @@ function parseFilename(filename) {
   const variantMatch = stem.match(VARIANT_SUFFIX);
 
   if (variantMatch) {
+    const baseName = variantMatch[1].trim();
     return {
       filename,
-      baseName: variantMatch[1].trim(),
+      baseName,
       variant: Number.parseInt(variantMatch[2], 10),
-      groupKey: normalizeGroupKey(variantMatch[1]),
+      groupKey: normalizeGroupKey(baseName),
     };
   }
 
+  const baseName = stem.trim();
   return {
     filename,
-    baseName: stem.trim(),
+    baseName,
     variant: 0,
-    groupKey: normalizeGroupKey(stem),
+    groupKey: normalizeGroupKey(baseName),
   };
 }
 
@@ -77,6 +87,24 @@ function titleFromBaseName(baseName) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+function pickDisplayBaseName(entries) {
+  const primaryCandidates = entries.filter((entry) => entry.variant === 0);
+  const pool = primaryCandidates.length > 0 ? primaryCandidates : entries;
+
+  return pool
+    .slice()
+    .sort((a, b) => scoreBaseName(b.baseName) - scoreBaseName(a.baseName))[0]
+    .baseName;
+}
+
+function scoreBaseName(name) {
+  let score = 0;
+  if (/['']/.test(name)) score += 20;
+  if (!/-/.test(name)) score += 10;
+  if (/^[A-Z]/.test(name)) score += 5;
+  return score + name.length * 0.01;
+}
+
 function escapeString(str) {
   return str.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
@@ -90,7 +118,7 @@ async function loadExistingMetadata() {
 
     let match;
     while ((match = blockRegex.exec(content)) !== null) {
-      const primaryFilename = decodeURIComponent(match[8]);
+      const primaryFilename = decodeURIComponent(match[7]);
       const parsed = parseFilename(primaryFilename);
       const meta = {
         id: Number.parseInt(match[1], 10),
@@ -99,12 +127,20 @@ async function loadExistingMetadata() {
         medium: match[4],
         year: match[5],
         dimensions: match[6],
-        description: match[9],
-        featured: match[10] === "true",
+        description: match[8],
+        featured: match[9] === "true",
       };
 
+      if (
+        meta.description === "true" ||
+        meta.description === "false" ||
+        meta.description.length < 3
+      ) {
+        continue;
+      }
+
       map.set(parsed.groupKey, meta);
-      map.set(primaryFilename, meta);
+      map.set(normalizeGroupKey(meta.title), meta);
     }
 
     return map;
@@ -126,15 +162,19 @@ function groupFiles(files) {
 
   return [...groups.entries()]
     .map(([groupKey, entries]) => {
-      entries.sort((a, b) => a.variant - b.variant);
-      const primary =
-        entries.find((entry) => entry.variant === 0) ?? entries[0];
+      entries.sort((a, b) => {
+        if (a.variant !== b.variant) return a.variant - b.variant;
+        return a.filename.localeCompare(b.filename, undefined, {
+          sensitivity: "base",
+        });
+      });
+
       const images = entries.map((entry) => imagePath(entry.filename));
 
       return {
         groupKey,
-        baseName: primary.baseName,
-        primaryFilename: primary.filename,
+        baseName: pickDisplayBaseName(entries),
+        primaryFilename: entries[0].filename,
         images,
       };
     })
@@ -155,8 +195,7 @@ async function main() {
   let untitledCount = 0;
 
   const artworks = groups.map((group, index) => {
-    const saved =
-      existing.get(group.groupKey) ?? existing.get(group.primaryFilename);
+    const saved = existing.get(group.groupKey);
     const derivedTitle = titleFromBaseName(group.baseName);
     const category =
       saved?.category && CATEGORIES.includes(saved.category)

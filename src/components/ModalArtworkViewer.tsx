@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Artwork } from "../types/artwork";
 
 type ModalArtworkViewerProps = {
@@ -46,6 +46,26 @@ export default function ModalArtworkViewer({
   }, [artwork, images.length, onClose]);
 
   const hasMultiple = images.length > 1;
+  const touchStartX = useRef<number | null>(null);
+
+  const goToPrevious = () =>
+    setActiveIndex((i) => (i - 1 + images.length) % images.length);
+
+  const goToNext = () => setActiveIndex((i) => (i + 1) % images.length);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || !hasMultiple) return;
+    const delta = (e.changedTouches[0]?.clientX ?? 0) - touchStartX.current;
+    if (Math.abs(delta) > 48) {
+      if (delta < 0) goToNext();
+      else goToPrevious();
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <AnimatePresence>
@@ -73,7 +93,11 @@ export default function ModalArtworkViewer({
             className="relative z-10 grid max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e10] shadow-2xl md:grid-cols-2"
           >
             <div className="relative flex max-h-[45vh] flex-col bg-[#08080a] md:max-h-[90vh]">
-              <div className="relative flex-1">
+              <div
+                className="relative flex-1 touch-pan-y"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={images[activeIndex]}
@@ -91,13 +115,12 @@ export default function ModalArtworkViewer({
 
                 {hasMultiple && (
                   <>
+                    <span className="absolute right-3 top-3 rounded-full border border-white/10 bg-[#08080a]/80 px-2.5 py-1 font-sans text-[10px] uppercase tracking-[0.15em] text-[#f4f1ec]/70 backdrop-blur">
+                      {activeIndex + 1} / {images.length}
+                    </span>
                     <button
                       type="button"
-                      onClick={() =>
-                        setActiveIndex(
-                          (i) => (i - 1 + images.length) % images.length,
-                        )
-                      }
+                      onClick={goToPrevious}
                       className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#08080a]/80 text-[#f4f1ec]/80 backdrop-blur transition-colors hover:text-[#f4f1ec]"
                       aria-label="Previous image"
                     >
@@ -105,9 +128,7 @@ export default function ModalArtworkViewer({
                     </button>
                     <button
                       type="button"
-                      onClick={() =>
-                        setActiveIndex((i) => (i + 1) % images.length)
-                      }
+                      onClick={goToNext}
                       className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#08080a]/80 text-[#f4f1ec]/80 backdrop-blur transition-colors hover:text-[#f4f1ec]"
                       aria-label="Next image"
                     >
