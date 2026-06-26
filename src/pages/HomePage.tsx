@@ -10,7 +10,7 @@ export default function HomePage() {
   usePageMeta({
     title: "Home",
     description:
-      "Prashrey Palette Art Studio — contemporary art for collectors, interior designers, and commission clients.",
+      "Prashrey Palette Art Studio — original paintings inspired by nature, emotion, culture, and timeless artistic expression.",
   });
 
   const featured = artworks.filter((a) => a.featured).slice(0, 6);
@@ -18,20 +18,21 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <section className="relative px-6 py-24 lg:px-8 lg:py-32">
+
+      <section className="relative bg-[#F5F5F0] px-6 py-24 text-[#2D4724] lg:px-8 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <ScrollReveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <p className="font-sans text-xs uppercase tracking-[0.4em] text-[#c9a962]">
+              <p className="font-sans text-xs uppercase tracking-[0.4em] text-[#C9A24A]">
                 Featured Works
               </p>
-              <h2 className="mt-4 font-display text-4xl text-[#f4f1ec] md:text-5xl">
+              <h2 className="mt-4 font-display text-4xl text-[#2D4724] md:text-5xl">
                 Selected from the studio
               </h2>
             </div>
             <Link
               to="/portfolio"
-              className="rounded-full border border-[#c9a962]/40 px-6 py-2.5 font-sans text-xs uppercase tracking-[0.2em] text-[#c9a962] transition-colors hover:bg-[#c9a962]/10"
+              className="rounded-full border border-[#C9A24A]/50 px-6 py-2.5 font-sans text-xs uppercase tracking-[0.2em] text-[#2D4724] transition-colors hover:bg-[#C9A24A]/15"
             >
               View full portfolio
             </Link>
@@ -42,7 +43,7 @@ export default function HomePage() {
               <ScrollReveal key={artwork.id} delay={index * 0.05}>
                 <Link
                   to={`/portfolio/${artwork.id}`}
-                  className="group block overflow-hidden rounded-lg border border-white/5 bg-[#121214]/50 transition-all duration-500 hover:border-[#c9a962]/25 hover:shadow-lg hover:shadow-[#c9a962]/5"
+                  className="group block overflow-hidden rounded-sm border border-[#2D4724]/10 bg-white shadow-md shadow-[#2D4724]/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#C9A24A]/40 hover:shadow-lg hover:shadow-[#C9A24A]/10"
                 >
                   <div className="aspect-[4/5] overflow-hidden">
                     <OptimizedImage
@@ -52,10 +53,10 @@ export default function HomePage() {
                     />
                   </div>
                   <div className="p-5">
-                    <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-[#c9a962]">
+                    <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-[#C9A24A]">
                       {artwork.category}
                     </p>
-                    <h3 className="mt-1 font-display text-xl text-[#f4f1ec]">
+                    <h3 className="mt-1 font-display text-xl text-[#2D4724]">
                       {artwork.title}
                     </h3>
                   </div>
@@ -65,6 +66,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <TestimonialsSection />
     </>
   );
