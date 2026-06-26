@@ -22,4 +22,13 @@ export const siteConfig = {
     city: "Mumbai, India",
     address: "Prashrey Palette Art Studio, Mumbai, Maharashtra, India",
   },
+
+  /** Logo file in public/ — add "Prashrey Palette Logo.png" (or .PNG / .jpg) */
+  logoAlt: "Prashrey Palette – The Art Studio",
+  logoPaths: [
+    "/Prashrey Palette Logo.png",
+    "/Prashrey Palette Logo.PNG",
+    "/Prashrey Palette Logo.jpg",
+    "/Prashrey Palette Logo.webp",
+  ],
 } as const;
