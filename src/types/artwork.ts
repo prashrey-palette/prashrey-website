@@ -14,6 +14,7 @@ export type Artwork = {
   year: string;
   dimensions: string;
   image: string;
+  images?: string[];
   description: string;
   featured: boolean;
 };
