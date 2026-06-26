@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "generate:artworks": "node scripts/generate-artworks.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
-    "prebuild": "node scripts/prebuild.mjs"
+    "prebuild": "node scripts/generate-artworks.mjs && node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",

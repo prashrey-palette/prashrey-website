@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useScrollToTop } from "../hooks/useScrollToTop";
 import AnimatedPolygonBackground from "./AnimatedPolygonBackground";
 import Footer from "./Footer";
@@ -9,19 +9,17 @@ import WhatsAppButton from "./WhatsAppButton";
 function PageLoader() {
   return (
     <div className="flex min-h-[50vh] items-center justify-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#C9A24A]/30 border-t-[#C9A24A]" />
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#c9a962]/30 border-t-[#c9a962]" />
     </div>
   );
 }
 
 export default function Layout() {
   useScrollToTop();
-  const location = useLocation();
-  const isHome = location.pathname === "/";
 
   return (
-    <div className="relative min-h-screen bg-[#2f4222] text-[#F5F5F0]">
-      {!isHome && <AnimatedPolygonBackground />}
+    <div className="relative min-h-screen bg-[#08080a] text-[#f4f1ec]">
+      <AnimatedPolygonBackground />
       <div className="relative z-10 flex min-h-screen flex-col">
         <Navbar />
         <main className="flex-1">

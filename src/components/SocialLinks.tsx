@@ -22,7 +22,7 @@ export default function SocialLinks({
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex ${buttonSize} items-center justify-center rounded-full border border-[#F5F5F0]/15 text-[#F5F5F0]/55 transition-all hover:border-[#C9A24A]/50 hover:text-[#C9A24A]`}
+          className={`flex ${buttonSize} items-center justify-center rounded-full border border-white/10 text-[#f4f1ec]/50 transition-all hover:border-[#c9a962]/40 hover:text-[#c9a962]`}
           aria-label={link.label}
         >
           <SocialIcon icon={link.icon} className={iconSize} />

@@ -1,133 +1,85 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { artworks } from "../data/artworks";
-import BrandMark from "./BrandMark";
-import HeroTextureBackground from "./HeroTextureBackground";
-import OptimizedImage from "./OptimizedImage";
 
-const featuredArtwork =
-  artworks.find((a) => a.featured) ?? artworks[0];
-
-const ease = [0.22, 1, 0.36, 1] as const;
+const tagline =
+  "Where pigment meets poetry — contemporary works crafted with intention, depth, and luminous restraint.";
 
 export default function HeroSection() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-[100dvh] overflow-hidden bg-[#2f4222]">
-      <HeroTextureBackground />
-
-      <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-7xl flex-col justify-center px-4 pb-24 pt-[calc(5.5rem+env(safe-area-inset-top))] sm:px-6 lg:px-8 lg:pb-20 lg:pt-32">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease }}
-              className="w-full"
-            >
-              <BrandMark variant="hero" showName className="mx-auto lg:mx-0" />
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.12, ease }}
-              className="mt-8 font-display text-3xl leading-[1.1] text-[#F5F5F0] sm:text-4xl md:text-5xl lg:mt-10 lg:text-6xl xl:text-7xl"
-            >
-              Every Canvas Tells A Story
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.24, ease }}
-              className="mt-5 max-w-lg font-sans text-sm leading-relaxed text-[#F5F5F0]/75 sm:text-base md:text-lg lg:mt-6"
-            >
-              Original paintings inspired by nature, emotion, culture, and
-              timeless artistic expression.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.36, ease }}
-              className="mt-8 flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row lg:mt-10"
-            >
-              <Link
-                to="/portfolio"
-                className="rounded-full bg-[#C9A24A] px-6 py-3.5 text-center font-sans text-xs uppercase tracking-[0.2em] text-[#2f4222] shadow-lg shadow-black/15 transition-all hover:bg-[#D4B366] sm:px-8"
-              >
-                Explore Gallery
-              </Link>
-              <Link
-                to="/commission"
-                className="rounded-full border border-[#C9A24A]/70 px-6 py-3.5 text-center font-sans text-xs uppercase tracking-[0.2em] text-[#F5F5F0] transition-all hover:border-[#C9A24A] hover:bg-[#C9A24A]/10 sm:px-8"
-              >
-                Commission an Artwork
-              </Link>
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.28, ease }}
-            className="relative mx-auto w-full max-w-[320px] sm:max-w-md lg:max-w-none"
-          >
-            <Link
-              to={`/portfolio/${featuredArtwork.id}`}
-              className="group block"
-              aria-label={`View ${featuredArtwork.title}`}
-            >
-              <motion.div
-                animate={reducedMotion ? {} : { y: [0, -8, 0] }}
-                transition={{
-                  duration: 7,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <div className="overflow-hidden rounded-sm border border-[#C9A24A]/30 bg-[#253618] p-2.5 shadow-2xl shadow-black/30 sm:p-4">
-                  <div className="overflow-hidden rounded-sm border border-[#F5F5F0]/10">
-                    <div className="aspect-[4/5] overflow-hidden">
-                      <OptimizedImage
-                        src={featuredArtwork.image}
-                        alt={featuredArtwork.title}
-                        priority
-                        className="h-full w-full transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 640px) 85vw, 45vw"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 text-center lg:text-left">
-                  <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#C9A24A]">
-                    Featured Work
-                  </p>
-                  <p className="mt-1 font-display text-lg text-[#F5F5F0] sm:text-xl md:text-2xl">
-                    {featuredArtwork.title}
-                  </p>
-                </div>
-              </motion.div>
-            </Link>
-          </motion.div>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1.5 sm:flex">
-        <motion.span
-          animate={reducedMotion ? {} : { y: [0, 5, 0] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-          className="font-display text-lg text-[#C9A24A]/80"
-          aria-hidden
+    <section className="relative flex min-h-screen flex-col justify-center px-6 pt-28 pb-20 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-6 font-sans text-xs uppercase tracking-[0.4em] text-[#c9a962]"
         >
-          ↓
-        </motion.span>
-        <span className="font-sans text-[10px] uppercase tracking-[0.35em] text-[#F5F5F0]/45">
-          Scroll to Explore
-        </span>
+          Contemporary Art Studio
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="font-display max-w-4xl text-5xl leading-[1.05] text-[#f4f1ec] sm:text-6xl md:text-7xl lg:text-8xl"
+        >
+          Prashrey Palette
+          <span className="mt-2 block text-[#f4f1ec]/60">Art Studio</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 max-w-xl font-sans text-base leading-relaxed text-[#f4f1ec]/55 md:text-lg"
+        >
+          {tagline}
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12 flex flex-wrap gap-4"
+        >
+          <Link
+            to="/portfolio"
+            className="rounded-full bg-[#c9a962] px-8 py-3.5 font-sans text-xs uppercase tracking-[0.2em] text-[#08080a] transition-transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            View Portfolio
+          </Link>
+          <Link
+            to="/about"
+            className="rounded-full border border-[#f4f1ec]/20 px-8 py-3.5 font-sans text-xs uppercase tracking-[0.2em] text-[#f4f1ec] transition-all hover:border-[#c9a962]/50 hover:text-[#c9a962]"
+          >
+            About the Artist
+          </Link>
+          <Link
+            to="/contact"
+            className="rounded-full border border-transparent px-8 py-3.5 font-sans text-xs uppercase tracking-[0.2em] text-[#f4f1ec]/60 underline-offset-4 transition-colors hover:text-[#c9a962] hover:underline"
+          >
+            Contact
+          </Link>
+        </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
+      >
+        <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#f4f1ec]/30">
+          Explore
+        </span>
+        <motion.div
+          animate={reducedMotion ? {} : { y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="h-10 w-px bg-gradient-to-b from-[#c9a962]/60 to-transparent"
+        />
+      </motion.div>
     </section>
   );
 }
