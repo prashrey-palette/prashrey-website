@@ -7,7 +7,12 @@ export const siteConfig = {
   tagline:
     "Where pigment meets poetry — contemporary works crafted with intention, depth, and luminous restraint.",
 
-  /** WhatsApp number in international format without + or spaces */
+  brand: {
+    /** Displayed next to the logo — customize these */
+    name: "Prashrey Palette",
+    tagline: "The Art Studio",
+  },
+
   whatsappNumber,
 
   email: "prashreypalette@gmail.com",
@@ -23,10 +28,11 @@ export const siteConfig = {
     address: "Prashrey Palette Art Studio, Mumbai, Maharashtra, India",
   },
 
-  /** Logo file in public/ — add "Prashrey Palette Logo.png" (or .PNG / .jpg) */
   logoAlt: "Prashrey Palette – The Art Studio",
   logoPaths: [
     "/Prashrey Palette Logo.png",
+    "/prashrey palette logo.png",
+    "/prashrey palette logo.PNG",
     "/Prashrey Palette Logo.PNG",
     "/Prashrey Palette Logo.jpg",
     "/Prashrey Palette Logo.webp",

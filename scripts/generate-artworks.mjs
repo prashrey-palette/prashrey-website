@@ -135,7 +135,8 @@ async function loadExistingMetadata() {
       if (
         meta.description === "true" ||
         meta.description === "false" ||
-        meta.description.length < 3
+        meta.description.length < 3 ||
+        meta.description.includes("\\\\")
       ) {
         continue;
       }

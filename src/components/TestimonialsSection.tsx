@@ -6,7 +6,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="relative bg-[#2D4724] px-6 py-24 lg:px-8 lg:py-32"
+      className="relative bg-[#2f4222] px-6 py-24 lg:px-8 lg:py-32"
     >
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="text-center">
@@ -29,7 +29,7 @@ export default function TestimonialsSection() {
                 delay: 0.2 + i * 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="rounded-sm border border-[#F5F5F0]/10 bg-[#243B1D]/60 p-8 backdrop-blur-sm"
+              className="rounded-sm border border-[#F5F5F0]/10 bg-[#253618]/60 p-8 backdrop-blur-sm"
             >
               <p className="font-display text-lg leading-relaxed text-[#F5F5F0]/90 md:text-xl">
                 &ldquo;{t.quote}&rdquo;
