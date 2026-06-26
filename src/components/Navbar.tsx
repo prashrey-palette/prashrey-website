@@ -1,7 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import BrandLogo from "./BrandLogo";
+import BrandMark from "./BrandMark";
 import { navLinks } from "../data/navigation";
 
 export default function Navbar() {
@@ -36,94 +36,109 @@ export default function Navbar() {
     }`;
 
   const headerClass = scrolled
-    ? "border-b border-[#F5F5F0]/10 bg-[#2D4724]/88 py-3 shadow-lg shadow-black/10 backdrop-blur-xl"
+    ? "border-b border-[#F5F5F0]/10 bg-[#2f4222]/92 py-2.5 shadow-lg shadow-black/10 backdrop-blur-xl"
     : isHome
-      ? "bg-[#2D4724]/20 py-5 backdrop-blur-md"
-      : "border-b border-[#F5F5F0]/5 bg-[#2D4724]/75 py-4 backdrop-blur-lg";
+      ? "bg-[#2f4222]/30 py-4 backdrop-blur-md"
+      : "border-b border-[#F5F5F0]/5 bg-[#2f4222]/80 py-3 backdrop-blur-lg";
 
-  return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${headerClass}`}
-    >
-      <nav
-        className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8"
-        aria-label="Main navigation"
-      >
-        <BrandLogo variant="nav" linked />
-
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <NavLink to={link.href} end={link.href === "/"} className={linkClass}>
-                {link.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-[#C9A24A] transition-all duration-300 group-hover:w-full [[aria-current=page]_&]:w-full" />
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-
-        <Link
-          to="/contact"
-          className="hidden rounded-full border border-[#C9A24A]/50 px-5 py-2 font-sans text-xs uppercase tracking-[0.2em] text-[#C9A24A] transition-all hover:bg-[#C9A24A]/15 md:block"
-        >
-          Inquire
-        </Link>
-
+  const mobileMenu =
+    mobileOpen &&
+    createPortal(
+      <div className="fixed inset-0 z-[300] md:hidden">
         <button
           type="button"
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-          onClick={() => setMobileOpen((o) => !o)}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
+          className="absolute inset-0 bg-[#2f4222]/98 backdrop-blur-md"
+          onClick={() => setMobileOpen(false)}
+          aria-label="Close menu"
+        />
+        <nav
+          className="relative z-10 flex h-full flex-col items-center justify-center px-6"
+          aria-label="Mobile navigation"
         >
-          <span
-            className={`h-px w-6 bg-[#F5F5F0] transition-all ${mobileOpen ? "translate-y-[5px] rotate-45" : ""}`}
-          />
-          <span
-            className={`h-px w-6 bg-[#F5F5F0] transition-all ${mobileOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`h-px w-6 bg-[#F5F5F0] transition-all ${mobileOpen ? "-translate-y-[5px] -rotate-45" : ""}`}
-          />
-        </button>
-      </nav>
-
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[#2D4724]/97 backdrop-blur-xl md:hidden"
-          >
-            <motion.ul
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="flex h-full flex-col items-center justify-center gap-8"
-            >
-              {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+          <ul className="flex w-full max-w-xs flex-col gap-2">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <NavLink
+                  to={link.href}
+                  end={link.href === "/"}
+                  onClick={() => setMobileOpen(false)}
+                  className={({ isActive }) =>
+                    `block rounded-lg px-4 py-3.5 text-center font-display text-xl transition-colors ${
+                      isActive
+                        ? "bg-[#C9A24A]/15 text-[#C9A24A]"
+                        : "text-[#F5F5F0] hover:bg-[#F5F5F0]/5 hover:text-[#C9A24A]"
+                    }`
+                  }
                 >
-                  <NavLink
-                    to={link.href}
-                    end={link.href === "/"}
-                    className={({ isActive }) =>
-                      `font-display text-2xl ${isActive ? "text-[#C9A24A]" : "text-[#F5F5F0] hover:text-[#C9A24A]"}`
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
+            <li className="mt-4">
+              <Link
+                to="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-full border border-[#C9A24A]/60 py-3.5 text-center font-sans text-xs uppercase tracking-[0.2em] text-[#C9A24A]"
+              >
+                Inquire
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>,
+      document.body,
+    );
+
+  return (
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-[200] transition-all duration-500 ${headerClass}`}
+        style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+      >
+        <nav
+          className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8"
+          aria-label="Main navigation"
+        >
+          <BrandMark variant="nav" linked showName />
+
+          <ul className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <NavLink to={link.href} end={link.href === "/"} className={linkClass}>
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-[#C9A24A] transition-all duration-300 group-hover:w-full [[aria-current=page]_&]:w-full" />
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          <Link
+            to="/contact"
+            className="hidden rounded-full border border-[#C9A24A]/50 px-5 py-2 font-sans text-xs uppercase tracking-[0.2em] text-[#C9A24A] transition-all hover:bg-[#C9A24A]/15 md:block"
+          >
+            Inquire
+          </Link>
+
+          <button
+            type="button"
+            className="relative flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#F5F5F0]/10 md:hidden"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+          >
+            <span
+              className={`h-0.5 w-5 bg-[#F5F5F0] transition-all ${mobileOpen ? "translate-y-[5px] rotate-45" : ""}`}
+            />
+            <span
+              className={`h-0.5 w-5 bg-[#F5F5F0] transition-all ${mobileOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`h-0.5 w-5 bg-[#F5F5F0] transition-all ${mobileOpen ? "-translate-y-[5px] -rotate-45" : ""}`}
+            />
+          </button>
+        </nav>
+      </header>
+      {mobileMenu}
+    </>
   );
 }

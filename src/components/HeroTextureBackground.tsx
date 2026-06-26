@@ -21,8 +21,8 @@ export default function HeroTextureBackground() {
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute inset-0 bg-[#2D4724]" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#243B1D]/80 via-transparent to-[#3A5A30]/40" />
+      <div className="absolute inset-0 bg-[#2f4222]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#253618]/80 via-transparent to-[#3d5534]/40" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_30%_20%,rgba(201,162,74,0.12),transparent_55%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_85%_75%,rgba(245,245,240,0.06),transparent_50%)]" />
 

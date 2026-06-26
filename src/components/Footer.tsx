@@ -7,7 +7,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-[#F5F5F0]/10 bg-[#243B1D] px-6 py-16 lg:px-8">
+    <footer className="relative border-t border-[#F5F5F0]/10 bg-[#253618] px-6 py-16 lg:px-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-12 md:flex-row md:items-start md:justify-between">
         <div>
           <p className="font-display text-xl text-[#F5F5F0]">Prashrey Palette</p>

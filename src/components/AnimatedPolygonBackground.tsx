@@ -146,8 +146,8 @@ export default function AnimatedPolygonBackground() {
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden text-[#C9A24A]"
       aria-hidden
     >
-      <div className="absolute inset-0 bg-[#2D4724]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#243B1D]/90 via-transparent to-[#2D4724]/95" />
+      <div className="absolute inset-0 bg-[#2f4222]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#253618]/90 via-transparent to-[#2f4222]/95" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(201,162,74,0.1),transparent)]" />
 
       <svg

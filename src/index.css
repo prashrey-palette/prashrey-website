@@ -3,8 +3,8 @@
 @theme {
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
-  --color-forest: #2d4724;
-  --color-forest-dark: #243b1d;
+  --color-forest: #2f4222;
+  --color-forest-dark: #253618;
   --color-cream: #f5f5f0;
   --color-gold: #c9a24a;
 }
@@ -12,17 +12,24 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply antialiased;
     font-family: var(--font-sans);
-    background-color: #2d4724;
+    background-color: #2f4222;
     color: #f5f5f0;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
   }
 
   .font-display {
     font-family: var(--font-display);
+  }
+
+  #root {
+    overflow-x: hidden;
   }
 
   @media (prefers-reduced-motion: reduce) {
