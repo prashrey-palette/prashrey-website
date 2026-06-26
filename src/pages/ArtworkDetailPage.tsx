@@ -1,6 +1,5 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import OptimizedImage from "../components/OptimizedImage";
 import ScrollReveal from "../components/ScrollReveal";
 import { artworks } from "../data/artworks";
@@ -10,8 +9,17 @@ import { whatsappMessages, whatsappUrl } from "../utils/whatsapp";
 export default function ArtworkDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
+
+  const handleBack = () => {
+    if (location.key !== "default") {
+      navigate(-1);
+    } else {
+      navigate("/portfolio");
+    }
+  };
 
   const artwork = useMemo(
     () => artworks.find((a) => a.id === Number(id)),
@@ -60,10 +68,10 @@ export default function ArtworkDetailPage() {
       <div className="mx-auto max-w-6xl">
         <button
           type="button"
-          onClick={() => navigate("/portfolio")}
+          onClick={handleBack}
           className="mb-8 font-sans text-xs uppercase tracking-[0.2em] text-[#f4f1ec]/50 transition-colors hover:text-[#c9a962]"
         >
-          ← Back to portfolio
+          ← Back
         </button>
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -85,25 +93,15 @@ export default function ArtworkDetailPage() {
               }}
             >
               <div className="aspect-[4/5] sm:aspect-[3/4]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={images[activeIndex]}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="h-full w-full"
-                  >
-                    <OptimizedImage
-                      src={images[activeIndex]}
-                      alt={`${artwork.title} — view ${activeIndex + 1}`}
-                      priority={activeIndex === 0}
-                      objectFit="contain"
-                      className="h-full w-full"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  </motion.div>
-                </AnimatePresence>
+                <OptimizedImage
+                  key={images[activeIndex]}
+                  src={images[activeIndex]}
+                  alt={`${artwork.title} — view ${activeIndex + 1}`}
+                  priority={activeIndex === 0}
+                  objectFit="contain"
+                  className="h-full w-full"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
 
               {hasMultiple && (

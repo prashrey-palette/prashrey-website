@@ -8,14 +8,14 @@ export const siteConfig = {
     "Where pigment meets poetry — contemporary works crafted with intention, depth, and luminous restraint.",
 
   /** WhatsApp number in international format without + or spaces, e.g. 919876543210 */
-  whatsappNumber,
+  whatsappNumber: "918734062305"
 
-  email: "hello@prashreypalette.com",
+  email: "prashreypalette@gmail.com",
 
   social: {
-    instagram: "https://instagram.com/prashreypalette", // update your handle
-    youtube: "https://youtube.com/@prashreypalette", // update your channel
-    whatsapp: `https://wa.me/${whatsappNumber}`,
+    instagram: "https://instagram.com/prashrey_palette", // update your handle
+    youtube: "https://youtube.com/@prashrey_palette", // update your channel
+    whatsapp: `https://wa.me/${918734062305}`,
   },
 
   studio: {
