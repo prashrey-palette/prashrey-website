@@ -51,7 +51,7 @@ export default function ContactSection() {
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-[#f4f1ec]/50 transition-all hover:border-[#c9a962]/40 hover:text-[#c9a962]"
                   aria-label={link.label}
                 >
-                  <SocialIcon label={link.label} />
+                  <SocialIcon icon={link.icon} />
                 </a>
               ))}
             </div>

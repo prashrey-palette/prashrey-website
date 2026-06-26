@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { scrollToSection } from "../utils/smoothScroll";
+import { Link } from "react-router-dom";
 
 const tagline =
   "Where pigment meets poetry — contemporary works crafted with intention, depth, and luminous restraint.";
@@ -8,10 +8,7 @@ export default function HeroSection() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <section
-      id="hero"
-      className="relative flex min-h-screen flex-col justify-center px-6 pt-28 pb-20 lg:px-8"
-    >
+    <section className="relative flex min-h-screen flex-col justify-center px-6 pt-28 pb-20 lg:px-8">
       <div className="mx-auto w-full max-w-7xl">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -47,27 +44,24 @@ export default function HeroSection() {
           transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mt-12 flex flex-wrap gap-4"
         >
-          <button
-            type="button"
-            onClick={() => scrollToSection("#gallery")}
+          <Link
+            to="/portfolio"
             className="rounded-full bg-[#c9a962] px-8 py-3.5 font-sans text-xs uppercase tracking-[0.2em] text-[#08080a] transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            View Gallery
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollToSection("#collections")}
+            View Portfolio
+          </Link>
+          <Link
+            to="/about"
             className="rounded-full border border-[#f4f1ec]/20 px-8 py-3.5 font-sans text-xs uppercase tracking-[0.2em] text-[#f4f1ec] transition-all hover:border-[#c9a962]/50 hover:text-[#c9a962]"
           >
-            Explore Collections
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollToSection("#contact")}
+            About the Artist
+          </Link>
+          <Link
+            to="/contact"
             className="rounded-full border border-transparent px-8 py-3.5 font-sans text-xs uppercase tracking-[0.2em] text-[#f4f1ec]/60 underline-offset-4 transition-colors hover:text-[#c9a962] hover:underline"
           >
             Contact
-          </button>
+          </Link>
         </motion.div>
       </div>
 
@@ -75,10 +69,10 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
       >
         <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#f4f1ec]/30">
-          Scroll
+          Explore
         </span>
         <motion.div
           animate={reducedMotion ? {} : { y: [0, 8, 0] }}
@@ -86,15 +80,6 @@ export default function HeroSection() {
           className="h-10 w-px bg-gradient-to-b from-[#c9a962]/60 to-transparent"
         />
       </motion.div>
-
-      <div className="pointer-events-none absolute right-0 top-1/3 hidden h-[420px] w-[320px] overflow-hidden rounded-l-2xl border border-white/5 lg:block">
-        <img
-          src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=800&auto=format&fit=crop"
-          alt=""
-          className="h-full w-full object-cover opacity-40 mix-blend-luminosity"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#08080a] via-transparent to-transparent" />
-      </div>
     </section>
   );
 }

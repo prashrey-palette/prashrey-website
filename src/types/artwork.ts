@@ -17,6 +17,7 @@ export type Artwork = {
   images?: string[];
   description: string;
   featured: boolean;
+  availability: ArtworkAvailability;
 };
 
 export type Collection = {
@@ -38,3 +39,5 @@ export type NavLink = {
   href: string;
   label: string;
 };
+
+export type ArtworkAvailability = "Available" | "Sold" | "Commission Only";

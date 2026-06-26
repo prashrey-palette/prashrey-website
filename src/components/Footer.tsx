@@ -1,5 +1,7 @@
-import { footerLinks, socialLinks } from "../data/navigation";
-import { scrollToSection } from "../utils/smoothScroll";
+import { Link } from "react-router-dom";
+import { footerLinks } from "../data/navigation";
+import { siteConfig } from "../config/site";
+import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -13,9 +15,10 @@ export default function Footer() {
             Art Studio
           </p>
           <p className="mt-4 max-w-xs font-sans text-xs text-[#f4f1ec]/35">
-            Contemporary art for discerning spaces. Crafted with intention in
-            Mumbai.
+            Contemporary art for discerning spaces. Crafted with intention in{" "}
+            {siteConfig.studio.city}.
           </p>
+          <SocialLinks className="mt-6" />
         </div>
 
         <nav aria-label="Footer navigation">
@@ -25,13 +28,12 @@ export default function Footer() {
           <ul className="mt-4 flex flex-col gap-2">
             {footerLinks.map((link) => (
               <li key={link.href}>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection(link.href)}
+                <Link
+                  to={link.href}
                   className="font-sans text-sm text-[#f4f1ec]/50 transition-colors hover:text-[#c9a962]"
                 >
                   {link.label}
-                </button>
+                </Link>
               </li>
             ))}
           </ul>
@@ -39,21 +41,33 @@ export default function Footer() {
 
         <div>
           <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-[#f4f1ec]/40">
-            Connect
+            Contact
           </p>
           <ul className="mt-4 flex flex-col gap-2">
-            {socialLinks.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-sans text-sm text-[#f4f1ec]/50 transition-colors hover:text-[#c9a962]"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            <li>
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="font-sans text-sm text-[#f4f1ec]/50 transition-colors hover:text-[#c9a962]"
+              >
+                {siteConfig.email}
+              </a>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className="font-sans text-sm text-[#f4f1ec]/50 transition-colors hover:text-[#c9a962]"
+              >
+                Contact page
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/commission"
+                className="font-sans text-sm text-[#f4f1ec]/50 transition-colors hover:text-[#c9a962]"
+              >
+                Commission enquiry
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
