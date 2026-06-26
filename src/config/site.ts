@@ -1,5 +1,5 @@
 /** Central site configuration — update contact details here. */
-const whatsappNumber = "918734062305"; // international format, no + or spaces
+const whatsappNumber = "919876543210"; // e.g. 919876543210 for +91 98765 43210
 
 export const siteConfig = {
   name: "Prashrey Palette Art Studio",
@@ -7,34 +7,19 @@ export const siteConfig = {
   tagline:
     "Where pigment meets poetry — contemporary works crafted with intention, depth, and luminous restraint.",
 
-  brand: {
-    /** Displayed next to the logo — customize these */
-    name: "Prashrey Palette",
-    tagline: "The Art Studio",
-  },
-
-  whatsappNumber,
+  /** WhatsApp number in international format without + or spaces, e.g. 919876543210 */
+  whatsappNumber: "918734062305"
 
   email: "prashreypalette@gmail.com",
 
   social: {
-    instagram: "https://instagram.com/prashrey_palette",
-    youtube: "https://youtube.com/@prashrey_palette",
-    whatsapp: `https://wa.me/${whatsappNumber}`,
+    instagram: "https://instagram.com/prashrey_palette", // update your handle
+    youtube: "https://youtube.com/@prashrey_palette", // update your channel
+    whatsapp: `https://wa.me/${918734062305}`,
   },
 
   studio: {
     city: "Mumbai, India",
     address: "Prashrey Palette Art Studio, Mumbai, Maharashtra, India",
   },
-
-  logoAlt: "Prashrey Palette – The Art Studio",
-  logoPaths: [
-    "/Prashrey Palette Logo.png",
-    "/prashrey palette logo.png",
-    "/prashrey palette logo.PNG",
-    "/Prashrey Palette Logo.PNG",
-    "/Prashrey Palette Logo.jpg",
-    "/Prashrey Palette Logo.webp",
-  ],
 } as const;

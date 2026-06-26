@@ -143,19 +143,19 @@ export default function AnimatedPolygonBackground() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden text-[#C9A24A]"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden text-[#c9a962]"
       aria-hidden
     >
-      <div className="absolute inset-0 bg-[#2f4222]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#253618]/90 via-transparent to-[#2f4222]/95" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(201,162,74,0.1),transparent)]" />
+      <div className="absolute inset-0 bg-[#08080a]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c0f] via-transparent to-[#08080a]/90" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(201,169,98,0.08),transparent)]" />
 
       <svg
         className="absolute inset-0 h-full w-full"
         preserveAspectRatio="xMidYMid slice"
         viewBox="0 0 100 100"
       >
-        <g className="text-[#C9A24A]/60">
+        <g className="text-[#c9a962]/80">
           {shapes.map((shape) => (
             <PolygonShape
               key={shape.id}
@@ -171,7 +171,7 @@ export default function AnimatedPolygonBackground() {
         </g>
       </svg>
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(201,162,74,0.06),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(201,169,98,0.04),transparent_50%)]" />
       <div className="absolute inset-0 backdrop-blur-[0.5px]" />
     </div>
   );
