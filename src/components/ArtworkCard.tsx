@@ -12,6 +12,8 @@ export default function ArtworkCard({
   onSelect,
   index = 0,
 }: ArtworkCardProps) {
+  const imageCount = artwork.images?.length ?? 1;
+
   return (
     <motion.article
       layout
@@ -46,6 +48,11 @@ export default function ArtworkCard({
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#08080a]/90 via-[#08080a]/20 to-transparent opacity-80 transition-opacity group-hover:opacity-95" />
+        {imageCount > 1 && (
+          <span className="absolute right-3 top-3 rounded-full border border-white/10 bg-[#08080a]/70 px-2 py-0.5 font-sans text-[10px] uppercase tracking-[0.12em] text-[#c9a962]/90 backdrop-blur">
+            {imageCount} photos
+          </span>
+        )}
         <div className="absolute inset-x-0 bottom-0 p-5 translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
           <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-[#c9a962]">
             {artwork.category}
