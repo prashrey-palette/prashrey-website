@@ -114,7 +114,7 @@ async function loadExistingMetadata() {
     const content = await readFile(OUTPUT, "utf8");
     const map = new Map();
     const blockRegex =
-      /\{[\s\S]*?id:\s*(\d+),[\s\S]*?title:\s*"([^"]*)"[\s\S]*?category:\s*"([^"]*)"[\s\S]*?medium:\s*"([^"]*)"[\s\S]*?year:\s*"([^"]*)"[\s\S]*?dimensions:\s*"([^"]*)"[\s\S]*?image:\s*"\/artworks\/([^"]+)"[\s\S]*?description:\s*"([^"]*)"[\s\S]*?featured:\s*(true|false)/g;
+      /\{[\s\S]*?id:\s*(\d+),[\s\S]*?title:\s*"([^"]*)"[\s\S]*?category:\s*"([^"]*)"[\s\S]*?medium:\s*"([^"]*)"[\s\S]*?year:\s*"([^"]*)"[\s\S]*?dimensions:\s*"([^"]*)"[\s\S]*?image:\s*"\/artworks\/([^"]+)"[\s\S]*?description:\s*"([^"]*)"[\s\S]*?featured:\s*(true|false)[\s\S]*?availability:\s*"([^"]*)"/g;
 
     let match;
     while ((match = blockRegex.exec(content)) !== null) {
@@ -129,6 +129,7 @@ async function loadExistingMetadata() {
         dimensions: match[6],
         description: match[8],
         featured: match[9] === "true",
+        availability: match[10] || "Available",
       };
 
       if (
@@ -222,6 +223,7 @@ async function main() {
           ? `A studio work titled "${defaultTitle}". Update this description in src/data/artworks.js.`
           : "Placeholder entry — update the title, category, and description in src/data/artworks.js."),
       featured: saved?.featured ?? index < 6,
+      availability: saved?.availability ?? "Available",
     };
   });
 
@@ -262,6 +264,7 @@ export const artworks = [
     image: "${a.image}",${imagesField}
     description: "${escapeString(a.description)}",
     featured: ${a.featured},
+    availability: "${escapeString(a.availability)}",
   }`;
     })
     .join(",\n");

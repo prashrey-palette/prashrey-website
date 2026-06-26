@@ -1,17 +1,15 @@
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
 import { artworks, artworkCategories } from "../data/artworks";
-import type { Artwork, ArtworkCategory } from "../types/artwork";
+import type { ArtworkCategory } from "../types/artwork";
 import ArtworkCard from "./ArtworkCard";
 import CategoryFilter from "./CategoryFilter";
-import ModalArtworkViewer from "./ModalArtworkViewer";
 import ScrollReveal from "./ScrollReveal";
 
 export default function ArtworkGrid() {
   const [activeCategory, setActiveCategory] = useState<
     ArtworkCategory | "All"
   >("All");
-  const [selected, setSelected] = useState<Artwork | null>(null);
 
   const filtered = useMemo(() => {
     if (activeCategory === "All") return artworks;
@@ -19,18 +17,18 @@ export default function ArtworkGrid() {
   }, [activeCategory]);
 
   return (
-    <section id="gallery" className="relative px-6 py-24 lg:px-8 lg:py-32">
+    <section className="relative px-6 py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <ScrollReveal className="text-center">
           <p className="font-sans text-xs uppercase tracking-[0.4em] text-[#c9a962]">
             Portfolio
           </p>
-          <h2 className="mt-4 font-display text-4xl text-[#f4f1ec] md:text-5xl">
+          <h1 className="mt-4 font-display text-4xl text-[#f4f1ec] md:text-5xl">
             Selected Works
-          </h2>
+          </h1>
           <p className="mx-auto mt-4 max-w-lg font-sans text-sm text-[#f4f1ec]/50">
             Acrylic, watercolor, oil, sketch, and mixed-media works from the
-            studio — explore the full collection below.
+            studio — click any piece to view details.
           </p>
         </ScrollReveal>
 
@@ -46,11 +44,7 @@ export default function ArtworkGrid() {
           <AnimatePresence mode="popLayout">
             {filtered.map((artwork, index) => (
               <div key={artwork.id} className="mb-6">
-                <ArtworkCard
-                  artwork={artwork}
-                  index={index}
-                  onSelect={setSelected}
-                />
+                <ArtworkCard artwork={artwork} index={index} />
               </div>
             ))}
           </AnimatePresence>
@@ -62,8 +56,6 @@ export default function ArtworkGrid() {
           </p>
         )}
       </div>
-
-      <ModalArtworkViewer artwork={selected} onClose={() => setSelected(null)} />
     </section>
   );
 }
