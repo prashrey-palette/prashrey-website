@@ -1,52 +1,44 @@
-import type { Collection } from "../types/content";
+import type { Collection } from "../types/artwork";
 
 export const collections: Collection[] = [
   {
-    id: "nocturne",
-    title: "Nocturne Series",
-    pieces: 24,
-    image:
-      "https://images.unsplash.com/photo-1549490349-864fa168b4e6?q=80&w=800&auto=format&fit=crop",
-    description: "Moonlit palettes and soft atmospheric gradients.",
+    id: "c1",
+    title: "Luminous Forms",
+    subtitle: "Abstract explorations in light and color",
+    coverImage:
+      "https://images.unsplash.com/photo-1549490349-864fa9c1c0d4?q=80&w=1400&auto=format&fit=crop",
+    artworkCount: 12,
   },
   {
-    id: "prism",
-    title: "Prism Studies",
-    pieces: 18,
-    image:
-      "https://images.unsplash.com/photo-1558591710-0b35b2c9ca7d?q=80&w=800&auto=format&fit=crop",
-    description: "Light refractions explored through digital glass forms.",
+    id: "c2",
+    title: "Human Canvas",
+    subtitle: "Portrait studies & figurative works",
+    coverImage:
+      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1400&auto=format&fit=crop",
+    artworkCount: 8,
   },
   {
-    id: "echo",
-    title: "Echo Forms",
-    pieces: 31,
-    image:
-      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=800&auto=format&fit=crop",
-    description: "Sculptural silhouettes suspended in deep space.",
+    id: "c3",
+    title: "Horizons",
+    subtitle: "Landscapes of stillness and scale",
+    coverImage:
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1400&auto=format&fit=crop",
+    artworkCount: 10,
   },
   {
-    id: "pulse",
-    title: "Pulse Motion",
-    pieces: 15,
-    image:
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
-    description: "Kinetic compositions with layered motion trails.",
+    id: "c4",
+    title: "Studio Notes",
+    subtitle: "Sketches, studies & process pieces",
+    coverImage:
+      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1400&auto=format&fit=crop",
+    artworkCount: 15,
   },
   {
-    id: "veil",
-    title: "Veil Portraits",
-    pieces: 22,
-    image:
-      "https://images.unsplash.com/photo-1578301978018-3002fae05e2c?q=80&w=800&auto=format&fit=crop",
-    description: "Human emotion rendered through luminous abstraction.",
-  },
-  {
-    id: "orbit",
-    title: "Orbit Archives",
-    pieces: 27,
-    image:
-      "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=800&auto=format&fit=crop",
-    description: "Cosmic narratives built from particle fields.",
+    id: "c5",
+    title: "Digital Frontiers",
+    subtitle: "Contemporary digital compositions",
+    coverImage:
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400&auto=format&fit=crop",
+    artworkCount: 6,
   },
 ];

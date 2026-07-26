@@ -1,4 +1,7 @@
-export function scrollToSection(selector: string) {
-  const target = document.querySelector(selector);
-  target?.scrollIntoView({ behavior: "smooth", block: "start" });
+export function scrollToSection(href: string) {
+  const id = href.replace("#", "");
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
