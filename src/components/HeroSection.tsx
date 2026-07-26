@@ -19,8 +19,8 @@ export default function HeroSection() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease }}>
-              <div className="rounded-[1.75rem] border border-[#B88435]/20 bg-white/75 p-3 shadow-[0_18px_45px_rgba(40,40,32,0.10)]">
-                <BrandLogo variant="hero" className="mx-auto lg:mx-0" />
+              <div>
+                  <BrandLogo variant="hero" className="mx-auto lg:mx-0" />
               </div>
             </motion.div>
 
