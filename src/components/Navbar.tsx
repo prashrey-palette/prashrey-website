@@ -11,11 +11,20 @@ export default function Navbar() {
   const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 32);
+
+      if (mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+
     onScroll();
+
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [mobileOpen]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -94,7 +103,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[#F7F3EB]/97 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 overflow-y-auto bg-[#F7F3EB]/97 backdrop-blur-xl md:hidden"
           >
             <motion.ul
               initial={{ opacity: 0, y: 20 }}
@@ -112,8 +121,13 @@ export default function Navbar() {
                   <NavLink
                     to={link.href}
                     end={link.href === "/"}
+                    onClick={() => setMobileOpen(false)}
                     className={({ isActive }) =>
-                      `font-display text-2xl ${isActive ? "text-[#A75338]" : "text-[#282820] hover:text-[#A75338]"}`
+                      `font-display text-2xl ${
+                        isActive
+                          ? "text-[#A75338]"
+                          : "text-[#282820] hover:text-[#A75338]"
+                      }`
                     }
                   >
                     {link.label}
