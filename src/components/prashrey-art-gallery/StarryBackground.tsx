@@ -1,5 +1,4 @@
-import { useEffect, useRef } from "react";
-import { useGalleryInteraction } from "../../context/GalleryInteractionContext";
+import { useEffect, useRef, useState } from "react";
 
 type Star = {
   x: number;
@@ -21,10 +20,29 @@ type ShootingStar = {
 
 export default function StarryBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { mouse, reducedMotion } = useGalleryInteraction();
-  const mouseRef = useRef(mouse);
+  const mouseRef = useRef({ x: 0.5, y: 0.5 });
+  const [reducedMotion, setReducedMotion] = useState(false);
 
-  mouseRef.current = mouse;
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setReducedMotion(media.matches);
+
+    updateMotionPreference();
+    media.addEventListener("change", updateMotionPreference);
+    return () => media.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    const updateMousePosition = (event: MouseEvent) => {
+      mouseRef.current = {
+        x: event.clientX / window.innerWidth,
+        y: event.clientY / window.innerHeight,
+      };
+    };
+
+    window.addEventListener("mousemove", updateMousePosition, { passive: true });
+    return () => window.removeEventListener("mousemove", updateMousePosition);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
