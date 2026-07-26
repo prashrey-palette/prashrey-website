@@ -9,7 +9,7 @@ type BrandLogoProps = {
 
 const sizeClass = {
   hero: "h-auto w-full max-w-[210px] sm:max-w-[240px] md:max-w-[280px]",
-  nav: "h-12 w-12 rounded-full border border-[#B88435]/30 bg-[#F7F3EB] object-cover object-top p-0.5 shadow-sm md:h-14 md:w-14",
+  nav: "h-20 w-20 rounded-full border border-[#B88435]/30 bg-[#F7F3EB] object-cover object-top p-0.5 shadow-sm md:h-14 md:w-14",
 };
 
 export default function BrandLogo({
