@@ -183,9 +183,25 @@ export default function StarryBackground() {
     animate();
 
     window.addEventListener("resize", resize);
+    // Browsers can suspend requestAnimationFrame while this page is in their
+    // back/forward cache. Redraw and resume when the user returns.
+    const onPageHide = () => {
+      cancelAnimationFrame(animationId);
+      animationId = 0;
+    };
+    const onPageShow = () => {
+      resize();
+      if (animationId === 0) animate();
+    };
+
+    window.addEventListener("pagehide", onPageHide);
+    window.addEventListener("pageshow", onPageShow);
+
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("pagehide", onPageHide);
+      window.removeEventListener("pageshow", onPageShow);
     };
   }, [reducedMotion]);
 

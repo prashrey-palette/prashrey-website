@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c3f09529-6b18-4100-a555-e1551ef254cb" name="Changes" comment="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="cursor/premium-art-studio-gallery" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;prashrey-palette&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:prashrey-palette/prashrey-website.git",
+    "accountId": "5b59154b-f2cc-4ad7-8075-6dffa3106e1a"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="3EGKqU7YnVUas6odJlw8jZssQFx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;cursor/premium-art-studio-gallery&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/prateeksrivastava/Downloads/prashrey-website/public&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/config" />
+      <recent name="$PROJECT_DIR$/dist/artworks" />
+      <recent name="$PROJECT_DIR$/public/artwork" />
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c3f09529-6b18-4100-a555-e1551ef254cb" name="Changes" comment="" />
+      <created>1779799656934</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779799656934</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Update-2">
+      <option name="closed" value="true" />
+      <created>1782497609324</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1782497609324</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update-3">
+      <option name="closed" value="true" />
+      <created>1782498582653</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1782498582653</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update-3">
+      <option name="closed" value="true" />
+      <created>1782500156570</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1782500156570</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update-3">
+      <option name="closed" value="true" />
+      <created>1782500265837</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1782500265837</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update-6">
+      <option name="closed" value="true" />
+      <created>1782501379239</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1782501379239</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update-6">
+      <option name="closed" value="true" />
+      <created>1782501787955</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1782501787955</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update-10">
+      <option name="closed" value="true" />
+      <created>1782505034367</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1782505034367</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update-10">
+      <option name="closed" value="true" />
+      <created>1782506184128</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1782506184128</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update-10">
+      <option name="closed" value="true" />
+      <created>1782506759540</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1782506759540</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Revert last 3 commits">
+      <option name="closed" value="true" />
+      <created>1782507018832</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1782507018832</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Revert last 3 commits">
+      <option name="closed" value="true" />
+      <created>1782507046751</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1782507046751</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery">
+      <option name="closed" value="true" />
+      <created>1782508177423</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1782508177423</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery">
+      <option name="closed" value="true" />
+      <created>1782508185366</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1782508185366</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update-2" />
+    <MESSAGE value="Update-3" />
+    <MESSAGE value="Update-6" />
+    <MESSAGE value="Update-10" />
+    <MESSAGE value="Revert last 3 commits" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery" />
+  </component>
+</project>
