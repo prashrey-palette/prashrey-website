@@ -21,14 +21,13 @@ export default function HeroTextureBackground() {
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute inset-0 bg-[#2D4724]" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#243B1D]/80 via-transparent to-[#3A5A30]/40" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_30%_20%,rgba(201,162,74,0.12),transparent_55%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_85%_75%,rgba(245,245,240,0.06),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[#F7F3EB]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_12%_18%,rgba(184,132,53,0.16),transparent_58%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_88%_82%,rgba(167,83,56,0.10),transparent_60%)]" />
 
       {/* Watercolor paper grain */}
       <div
-        className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
+        className="absolute inset-0 opacity-[0.07] mix-blend-multiply"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: "180px 180px",
@@ -37,7 +36,7 @@ export default function HeroTextureBackground() {
 
       {/* Soft floating polygons */}
       <svg
-        className="absolute inset-0 h-full w-full text-[#C9A24A]/[0.07]"
+        className="absolute inset-0 h-full w-full text-[#A75338]/[0.16]"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid slice"
       >
@@ -74,7 +73,7 @@ export default function HeroTextureBackground() {
       {particles.map((p) => (
         <motion.span
           key={p.id}
-          className="absolute rounded-full bg-[#F5F5F0]/20"
+          className="absolute rounded-full bg-[#B88435]/25"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,

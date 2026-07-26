@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { footerLinks } from "../data/navigation";
 import { siteConfig } from "../config/site";
 import SocialLinks from "./SocialLinks";
+import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -10,10 +11,13 @@ export default function Footer() {
     <footer className="relative border-t border-[#F5F5F0]/10 bg-[#243B1D] px-6 py-16 lg:px-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-12 md:flex-row md:items-start md:justify-between">
         <div>
-          <p className="font-display text-xl text-[#F5F5F0]">Prashrey Palette</p>
-          <p className="mt-1 font-sans text-xs uppercase tracking-[0.3em] text-[#F5F5F0]/45">
-            The Art Studio
-          </p>
+          <div className="flex items-center gap-4">
+            <BrandLogo variant="nav" />
+            <div>
+              <p className="font-display text-xl text-[#F5F5F0]">Prashrey Palette</p>
+              <p className="mt-1 font-sans text-xs uppercase tracking-[0.3em] text-[#F5F5F0]/45">The Art Studio</p>
+            </div>
+          </div>
           <p className="mt-4 max-w-xs font-sans text-xs text-[#F5F5F0]/40">
             Original paintings for discerning spaces. Crafted with intention in{" "}
             {siteConfig.studio.city}.

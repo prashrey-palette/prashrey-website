@@ -19,20 +19,20 @@ export default function HomePage() {
     <>
       <HeroSection />
 
-      <section className="relative bg-[#F5F5F0] px-6 py-24 text-[#2D4724] lg:px-8 lg:py-32">
+      <section className="relative bg-[#F7F3EB] px-6 py-24 text-[#282820] lg:px-8 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <ScrollReveal className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <p className="font-sans text-xs uppercase tracking-[0.4em] text-[#C9A24A]">
-                Featured Works
+              <p className="font-sans text-xs uppercase tracking-[0.4em] text-[#A75338]">
+                From the studio wall
               </p>
-              <h2 className="mt-4 font-display text-4xl text-[#2D4724] md:text-5xl">
-                Selected from the studio
+              <h2 className="mt-4 font-display text-4xl text-[#282820] md:text-5xl">
+                Paintings with a life of their own
               </h2>
             </div>
             <Link
               to="/portfolio"
-              className="rounded-full border border-[#C9A24A]/50 px-6 py-2.5 font-sans text-xs uppercase tracking-[0.2em] text-[#2D4724] transition-colors hover:bg-[#C9A24A]/15"
+              className="rounded-full border border-[#B88435]/50 px-6 py-2.5 font-sans text-xs uppercase tracking-[0.2em] text-[#282820] transition-colors hover:bg-[#B88435]/15"
             >
               View full portfolio
             </Link>
@@ -43,7 +43,7 @@ export default function HomePage() {
               <ScrollReveal key={artwork.id} delay={index * 0.05}>
                 <Link
                   to={`/portfolio/${artwork.id}`}
-                  className="group block overflow-hidden rounded-sm border border-[#2D4724]/10 bg-white shadow-md shadow-[#2D4724]/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#C9A24A]/40 hover:shadow-lg hover:shadow-[#C9A24A]/10"
+                  className="group block overflow-hidden rounded-sm border border-[#282820]/10 bg-white shadow-md shadow-[#282820]/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#B88435]/50 hover:shadow-lg hover:shadow-[#B88435]/10"
                 >
                   <div className="aspect-[4/5] overflow-hidden">
                     <OptimizedImage
@@ -53,10 +53,10 @@ export default function HomePage() {
                     />
                   </div>
                   <div className="p-5">
-                    <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-[#C9A24A]">
+                    <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-[#A75338]">
                       {artwork.category}
                     </p>
-                    <h3 className="mt-1 font-display text-xl text-[#2D4724]">
+                    <h3 className="mt-1 font-display text-xl text-[#282820]">
                       {artwork.title}
                     </h3>
                   </div>

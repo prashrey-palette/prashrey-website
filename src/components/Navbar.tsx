@@ -31,15 +31,15 @@ export default function Navbar() {
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `group relative font-sans text-xs uppercase tracking-[0.2em] transition-colors ${
       isActive
-        ? "text-[#C9A24A]"
-        : "text-[#F5F5F0]/75 hover:text-[#C9A24A]"
+        ? "text-[#A75338]"
+        : "text-[#282820]/70 hover:text-[#A75338]"
     }`;
 
   const headerClass = scrolled
-    ? "border-b border-[#F5F5F0]/10 bg-[#2D4724]/88 py-3 shadow-lg shadow-black/10 backdrop-blur-xl"
+    ? "border-b border-[#282820]/10 bg-[#F7F3EB]/95 py-3 shadow-lg shadow-[#282820]/5 backdrop-blur-xl"
     : isHome
-      ? "bg-[#2D4724]/20 py-5 backdrop-blur-md"
-      : "border-b border-[#F5F5F0]/5 bg-[#2D4724]/75 py-4 backdrop-blur-lg";
+      ? "bg-[#F7F3EB]/70 py-5 backdrop-blur-md"
+      : "border-b border-[#282820]/10 bg-[#F7F3EB]/90 py-4 backdrop-blur-lg";
 
   return (
     <header
@@ -64,7 +64,7 @@ export default function Navbar() {
 
         <Link
           to="/contact"
-          className="hidden rounded-full border border-[#C9A24A]/50 px-5 py-2 font-sans text-xs uppercase tracking-[0.2em] text-[#C9A24A] transition-all hover:bg-[#C9A24A]/15 md:block"
+          className="hidden rounded-full border border-[#B88435]/60 px-5 py-2 font-sans text-xs uppercase tracking-[0.2em] text-[#282820] transition-all hover:bg-[#B88435]/15 md:block"
         >
           Inquire
         </Link>
@@ -77,13 +77,13 @@ export default function Navbar() {
           aria-expanded={mobileOpen}
         >
           <span
-            className={`h-px w-6 bg-[#F5F5F0] transition-all ${mobileOpen ? "translate-y-[5px] rotate-45" : ""}`}
+            className={`h-px w-6 bg-[#282820] transition-all ${mobileOpen ? "translate-y-[5px] rotate-45" : ""}`}
           />
           <span
-            className={`h-px w-6 bg-[#F5F5F0] transition-all ${mobileOpen ? "opacity-0" : ""}`}
+            className={`h-px w-6 bg-[#282820] transition-all ${mobileOpen ? "opacity-0" : ""}`}
           />
           <span
-            className={`h-px w-6 bg-[#F5F5F0] transition-all ${mobileOpen ? "-translate-y-[5px] -rotate-45" : ""}`}
+            className={`h-px w-6 bg-[#282820] transition-all ${mobileOpen ? "-translate-y-[5px] -rotate-45" : ""}`}
           />
         </button>
       </nav>
@@ -94,7 +94,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[#2D4724]/97 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 bg-[#F7F3EB]/97 backdrop-blur-xl md:hidden"
           >
             <motion.ul
               initial={{ opacity: 0, y: 20 }}
@@ -113,7 +113,7 @@ export default function Navbar() {
                     to={link.href}
                     end={link.href === "/"}
                     className={({ isActive }) =>
-                      `font-display text-2xl ${isActive ? "text-[#C9A24A]" : "text-[#F5F5F0] hover:text-[#C9A24A]"}`
+                      `font-display text-2xl ${isActive ? "text-[#A75338]" : "text-[#282820] hover:text-[#A75338]"}`
                     }
                   >
                     {link.label}

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { siteConfig } from "../config/site";
 
@@ -9,8 +8,8 @@ type BrandLogoProps = {
 };
 
 const sizeClass = {
-  hero: "h-auto w-full max-w-[240px] sm:max-w-[280px] md:max-w-[320px] lg:max-w-[360px]",
-  nav: "h-10 w-auto md:h-12",
+  hero: "h-auto w-full max-w-[210px] sm:max-w-[240px] md:max-w-[280px]",
+  nav: "h-12 w-12 rounded-full border border-[#B88435]/30 bg-[#F7F3EB] object-cover object-top p-0.5 shadow-sm md:h-14 md:w-14",
 };
 
 export default function BrandLogo({
@@ -18,23 +17,14 @@ export default function BrandLogo({
   linked = false,
   className = "",
 }: BrandLogoProps) {
-  const [srcIndex, setSrcIndex] = useState(0);
-  const candidates = siteConfig.logoPaths;
-  const src = candidates[srcIndex] ?? candidates[0];
-
   const img = (
     <img
-      src={src}
+      src={siteConfig.logoPaths[0]}
       alt={siteConfig.logoAlt}
-      width={variant === "hero" ? 360 : 160}
-      height={variant === "hero" ? 120 : 48}
+      width={variant === "hero" ? 280 : 56}
+      height={variant === "hero" ? 296 : 56}
       decoding="async"
       fetchPriority={variant === "hero" ? "high" : "auto"}
-      onError={() => {
-        if (srcIndex < candidates.length - 1) {
-          setSrcIndex((i) => i + 1);
-        }
-      }}
       className={`object-contain ${sizeClass[variant]} ${className}`}
     />
   );

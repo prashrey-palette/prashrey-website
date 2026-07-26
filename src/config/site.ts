@@ -23,9 +23,10 @@ export const siteConfig = {
     address: "Prashrey Palette Art Studio, Mumbai, Maharashtra, India",
   },
 
-  /** Logo file in public/ — add "Prashrey Palette Logo.png" (or .PNG / .jpg) */
+  /** Primary brand mark, prepared from the supplied studio artwork. */
   logoAlt: "Prashrey Palette – The Art Studio",
   logoPaths: [
+    "/brand/prashrey-palette-logo.png",
     "/Prashrey Palette Logo.png",
     "/Prashrey Palette Logo.PNG",
     "/Prashrey Palette Logo.jpg",

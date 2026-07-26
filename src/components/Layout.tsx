@@ -20,7 +20,7 @@ export default function Layout() {
   const isHome = location.pathname === "/";
 
   return (
-    <div className="relative min-h-screen bg-[#2D4724] text-[#F5F5F0]">
+    <div className="relative min-h-screen bg-[#F7F3EB] text-[#F5F5F0]">
       {!isHome && <AnimatedPolygonBackground />}
       <div className="relative z-10 flex min-h-screen flex-col">
         <Navbar />
