@@ -14,11 +14,8 @@
 /** @type {ArtworkCategory[]} */
 export const artworkCategories = [
   "Acrylic",
-  "Watercolor",
-  "Oil",
-  "Sketch",
+  "Pichwai",
   "Mixed Media",
-  "Digital Art"
 ];
 
 /** @type {Artwork[]} */
@@ -28,22 +25,29 @@ export const artworks = [
     title: "Autumn's Lullaby",
     category: "Acrylic",
     medium: "Acrylic on canvas",
-    year: "2025",
-    dimensions: "12x24",
+    year: "2023",
+    dimensions: "10 inches",
     image: "/artworks/Autumn's%20Lullaby.PNG",
     images: [
       "/artworks/Autumn's%20Lullaby.PNG",
       "/artworks/Autumns%20Lullaby_1.PNG",
     ],
-    description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
+    description: "Autumn's Lullaby**
+
+                  *When the world grows quiet and the moon begins to whisper, autumn sings its gentlest song. Beneath silver light, every leaf becomes a memory, every ripple a quiet verse, and time itself seems to pause in reverence to nature's serenity.*
+
+                  **Autumn's Lullaby** is an original acrylic painting created on a round canvas, celebrating the tranquil beauty of an autumn night. A radiant orange tree stands gracefully beside a calm river, its warm foliage glowing beneath the luminous full moon. The circular composition evokes harmony and completeness, drawing the viewer into a peaceful landscape where earth, water, and moonlight exist in perfect balance.
+
+                  Painted with rich acrylic textures and vibrant hues, this artwork captures the quiet poetry of the changing seasons. The vivid oranges contrast beautifully against the cool blues of the night sky and shimmering water, creating a scene that feels both dreamlike and deeply comforting. *Autumn's Lullaby* is an invitation to pause, reflect, and lose yourself in the soothing embrace of nature's timeless melody.
+"
     featured: true,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 2,
     title: "Bal Krishna",
-    category: "Watercolor",
-    medium: "Watercolor on paper",
+    category: "Acrylic",
+    medium: "Acrylic on canvas",
     year: "2023",
     dimensions: "12x18",
     image: "/artworks/Bal%20Krishna.PNG",
@@ -52,17 +56,17 @@ export const artworks = [
       "/artworks/Bal%20Krishna%20_1.PNG",
       "/artworks/Bal%20Krishna%20_2.PNG",
     ],
-    description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
+    description: "A studio work titled
     featured: true,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 3,
     title: "Elephantine",
-    category: "Oil",
-    medium: "Oil on canvas",
-    year: "2025",
-    dimensions: "—",
+    category: "acrylic",
+    medium: "Acrylic on canvas",
+    year: "2024",
+    dimensions: "3.5ft x 2.5ft",
     image: "/artworks/Elephantine.PNG",
     images: [
       "/artworks/Elephantine.PNG",
@@ -70,15 +74,15 @@ export const artworks = [
     ],
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: true,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 4,
     title: "Forest'S Whisper",
-    category: "Sketch",
-    medium: "Graphite and ink on paper",
-    year: "2025",
-    dimensions: "—",
+    category: "Acrylic",
+    medium: "Acrylic on canvas",
+    year: "2023",
+    dimensions: "12 inches",
     image: "/artworks/Forest's%20Whisper.PNG",
     images: [
       "/artworks/Forest's%20Whisper.PNG",
@@ -91,10 +95,10 @@ export const artworks = [
   {
     id: 5,
     title: "Gaj Milan:The Sacred Union",
-    category: "Mixed Media",
-    medium: "Mixed media on board",
-    year: "2025",
-    dimensions: "—",
+    category: "Pichwai",
+    medium: "Acrylic on canvas",
+    year: "2023",
+    dimensions: "8 inches",
     image: "/artworks/Gaj%20Milan%3AThe%20Sacred%20Union.PNG",
     images: [
       "/artworks/Gaj%20Milan%3AThe%20Sacred%20Union.PNG",
@@ -107,10 +111,10 @@ export const artworks = [
   {
     id: 6,
     title: "Gajanana",
-    category: "Digital Art",
-    medium: "Digital illustration",
+    category: "Acrylic",
+    medium: "Acrylic On Canvas",
     year: "2025",
-    dimensions: "—",
+    dimensions: "2ft x 1.5ft",
     image: "/artworks/Gajanana.PNG",
     images: [
       "/artworks/Gajanana.PNG",
@@ -126,7 +130,7 @@ export const artworks = [
     category: "Acrylic",
     medium: "Acrylic on canvas",
     year: "2025",
-    dimensions: "—",
+    dimensions: "12' x 10'",
     image: "/artworks/Ganesh%20Vandana.PNG",
     images: [
       "/artworks/Ganesh%20Vandana.PNG",
@@ -139,10 +143,10 @@ export const artworks = [
   {
     id: 8,
     title: "Gauri Shankar",
-    category: "Watercolor",
-    medium: "Watercolor on paper",
-    year: "2025",
-    dimensions: "—",
+    category: "Mixed Media",
+    medium: "Acrylic and resin on MDF",
+    year: "2023",
+    dimensions: "12' x 10'",
     image: "/artworks/Gauri%20Shankar.PNG",
     images: [
       "/artworks/Gauri%20Shankar.PNG",
@@ -150,15 +154,15 @@ export const artworks = [
     ],
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 9,
     title: "Geometry Of Peace",
-    category: "Oil",
-    medium: "Oil on canvas",
-    year: "2025",
-    dimensions: "—",
+    category: "Acrylic",
+    medium: "Acrylic on canvas",
+    year: "2026",
+    dimensions: "3ft x 2.5ft",
     image: "/artworks/Geometry%20Of%20Peace.PNG",
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
@@ -167,10 +171,10 @@ export const artworks = [
   {
     id: 10,
     title: "Gokul",
-    category: "Sketch",
-    medium: "Graphite and ink on paper",
-    year: "2025",
-    dimensions: "—",
+    category: "Acrylic",
+    medium: "Acrylic on canvasr",
+    year: "2024",
+    dimensions: "12' x 10'",
     image: "/artworks/Gokul.PNG",
     images: [
       "/artworks/Gokul.PNG",
@@ -178,15 +182,15 @@ export const artworks = [
     ],
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 11,
     title: "Golden Fortune",
     category: "Mixed Media",
     medium: "Mixed media on board",
-    year: "2025",
-    dimensions: "—",
+    year: "2023",
+    dimensions: "8 inches",
     image: "/artworks/Golden%20Fortune.PNG",
     images: [
       "/artworks/Golden%20Fortune.PNG",
@@ -200,10 +204,10 @@ export const artworks = [
   {
     id: 12,
     title: "Kamal Nayan",
-    category: "Digital Art",
-    medium: "Digital illustration",
-    year: "2025",
-    dimensions: "—",
+    category: "Pichwai",
+    medium: "Acrylic on canvas",
+    year: "2023",
+    dimensions: "10 inches",
     image: "/artworks/Kamal%20Nayan.PNG",
     images: [
       "/artworks/Kamal%20Nayan.PNG",
@@ -211,15 +215,15 @@ export const artworks = [
     ],
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 13,
     title: "Maa Ambe",
     category: "Acrylic",
     medium: "Acrylic on canvas",
-    year: "2025",
-    dimensions: "—",
+    year: "2023",
+    dimensions: "12' x 10'",
     image: "/artworks/Maa%20Ambe.PNG",
     images: [
       "/artworks/Maa%20Ambe.PNG",
@@ -232,10 +236,10 @@ export const artworks = [
   {
     id: 14,
     title: "Maa Saraswati",
-    category: "Watercolor",
-    medium: "Watercolor on paper",
+    category: "Acrylic",
+    medium: "Acrylic on canvas",
     year: "2025",
-    dimensions: "—",
+    dimensions: "2ft x 1.5ft",
     image: "/artworks/Maa%20Saraswati.PNG",
     images: [
       "/artworks/Maa%20Saraswati.PNG",
@@ -248,10 +252,10 @@ export const artworks = [
   {
     id: 15,
     title: "Radha Krishna",
-    category: "Oil",
-    medium: "Oil on canvas",
-    year: "2025",
-    dimensions: "—",
+    category: "Acrylic",
+    medium: "Acrylic on canvas",
+    year: "2024",
+    dimensions: "2ft x 1.5ft",
     image: "/artworks/Radha%20Krishna.PNG",
     images: [
       "/artworks/Radha%20Krishna.PNG",
@@ -265,10 +269,10 @@ export const artworks = [
   {
     id: 16,
     title: "Ras Raag",
-    category: "Sketch",
-    medium: "Graphite and ink on paper",
-    year: "2025",
-    dimensions: "—",
+    category: "Acrylic",
+    medium: "Acrylic on MDF",
+    year: "2022",
+    dimensions: "12' x 10'",
     image: "/artworks/Ras%20Raag.PNG",
     images: [
       "/artworks/Ras%20Raag.PNG",
@@ -277,15 +281,15 @@ export const artworks = [
     ],
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 17,
     title: "Roar",
     category: "Mixed Media",
-    medium: "Mixed media on board",
-    year: "2025",
-    dimensions: "—",
+    medium: "Acrylic and resin on board",
+    year: "2024",
+    dimensions: "12 inches",
     image: "/artworks/Roar.PNG",
     images: [
       "/artworks/Roar.PNG",
@@ -293,15 +297,15 @@ export const artworks = [
     ],
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 18,
     title: "Serenity",
-    category: "Digital Art",
-    medium: "Digital illustration",
-    year: "2025",
-    dimensions: "—",
+    category: "acrylic",
+    medium: "Acrylic on canvas",
+    year: "2023",
+    dimensions: "10' x 12'",
     image: "/artworks/Serenity.PNG",
     images: [
       "/artworks/Serenity.PNG",
@@ -314,10 +318,10 @@ export const artworks = [
   {
     id: 19,
     title: "Shiv Ganesh",
-    category: "Acrylic",
-    medium: "Acrylic on canvas",
+    category: "Mixed Media",
+    medium: "Acrylic and resin on MDF",
     year: "2025",
-    dimensions: "—",
+    dimensions: "12' x 10'",
     image: "/artworks/Shiv%20Ganesh.PNG",
     images: [
       "/artworks/Shiv%20Ganesh.PNG",
@@ -330,10 +334,10 @@ export const artworks = [
   {
     id: 20,
     title: "Shreenathji",
-    category: "Watercolor",
-    medium: "Watercolor on paper",
-    year: "2025",
-    dimensions: "—",
+    category: "Pichwai",
+    medium: "Acrylic on canvas",
+    year: "2023",
+    dimensions: "8 inches",
     image: "/artworks/Shreenathji.PNG",
     images: [
       "/artworks/Shreenathji.PNG",
@@ -350,7 +354,7 @@ export const artworks = [
     category: "Oil",
     medium: "Oil on canvas",
     year: "2025",
-    dimensions: "—",
+    dimensions: "6 inches",
     image: "/artworks/Sparrow.PNG",
     images: [
       "/artworks/Sparrow.PNG",
@@ -363,10 +367,10 @@ export const artworks = [
   {
     id: 22,
     title: "Spider Man",
-    category: "Sketch",
-    medium: "Graphite and ink on paper",
-    year: "2025",
-    dimensions: "—",
+    category: "Mixed Media",
+    medium: "Acrylic and resin on MDF",
+    year: "2024",
+    dimensions: "12' x 10'",
     image: "/artworks/Spider%20Man.JPG",
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
@@ -375,10 +379,10 @@ export const artworks = [
   {
     id: 23,
     title: "The Gentle Giant",
-    category: "Mixed Media",
-    medium: "Mixed media on board",
-    year: "2025",
-    dimensions: "—",
+    category: "Acrylic",
+    medium: "Acrylic on MDF",
+    year: "2023",
+    dimensions: "12' x 10'",
     image: "/artworks/The%20Gentle%20Giant.PNG",
     images: [
       "/artworks/The%20Gentle%20Giant.PNG",
@@ -391,10 +395,10 @@ export const artworks = [
   {
     id: 24,
     title: "The Living Valley",
-    category: "Digital Art",
-    medium: "Digital illustration",
+    category: "Textured- Knife Painting",
+    medium: "Acrylic Texture on canvas",
     year: "2025",
-    dimensions: "—",
+    dimensions: "3ft x 2ft",
     image: "/artworks/The%20Living%20Valley.PNG",
     images: [
       "/artworks/The%20Living%20Valley.PNG",
@@ -411,7 +415,7 @@ export const artworks = [
     category: "Acrylic",
     medium: "Acrylic on canvas",
     year: "2025",
-    dimensions: "—",
+    dimensions: "10 inches",
     image: "/artworks/The%20Mood%20Of%20the%20Horizon.PNG",
     images: [
       "/artworks/The%20Mood%20Of%20the%20Horizon.PNG",
@@ -419,15 +423,15 @@ export const artworks = [
     ],
     description: "A studio work titled \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
     featured: false,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 26,
     title: "The Nectar Pause",
-    category: "Watercolor",
-    medium: "Watercolor on paper",
+    category: "Acrylic",
+    medium: "Acrylic on canvas",
     year: "2025",
-    dimensions: "—",
+    dimensions: "2ft x 3ft",
     image: "/artworks/The%20Nectar%20Pause.PNG",
     images: [
       "/artworks/The%20Nectar%20Pause.PNG",
@@ -440,10 +444,10 @@ export const artworks = [
   {
     id: 27,
     title: "Timeless Traveller",
-    category: "Oil",
-    medium: "Oil on canvas",
-    year: "2025",
-    dimensions: "—",
+    category: "Acrylic",
+    medium: "Acrylic on canvas",
+    year: "2024",
+    dimensions: "12 inches",
     image: "/artworks/Timeless%20Traveller.PNG",
     images: [
       "/artworks/Timeless%20Traveller.PNG",
