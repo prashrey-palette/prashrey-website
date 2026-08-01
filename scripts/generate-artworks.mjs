@@ -19,20 +19,16 @@ const VARIANT_SUFFIX = /^(.+?)[\s_]+(\d+)$/i;
 
 const CATEGORIES = [
   "Acrylic",
-  "Watercolor",
-  "Oil",
-  "Sketch",
+  "Pichwai",
+  "Textured Art"
   "Mixed Media",
-  "Digital Art",
 ];
 
 const CATEGORY_MEDIUM = {
   Acrylic: "Acrylic on canvas",
-  Watercolor: "Watercolor on paper",
-  Oil: "Oil on canvas",
-  Sketch: "Graphite and ink on paper",
-  "Mixed Media": "Mixed media on board",
-  "Digital Art": "Digital illustration",
+  Textured Art: "Textured Art",
+  Pichwai: "Pichwai Art",
+  Mixed Media: "Mixed media on board",
 };
 
 /** Normalize names so "Autumn's Lullaby", "Autumns Lullaby_1", "Radha-Krishna" group together. */
