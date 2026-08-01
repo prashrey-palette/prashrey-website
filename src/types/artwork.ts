@@ -4,6 +4,7 @@ export type ArtworkCategory =
   | "Oil"
   | "Sketch"
   | "Mixed Media"
+  | "Pichwai"
   | "Digital Art";
 
 export type Artwork = {
