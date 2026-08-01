@@ -49,7 +49,7 @@ export const artworks = [
       "/artworks/Bal%20Krishna%20_1.PNG",
       "/artworks/Bal%20Krishna%20_2.PNG",
     ],
-    description: "A studio work titled
+    description: "A studio work titled",
     featured: true,
     availability: "Customisation Available",
   },
