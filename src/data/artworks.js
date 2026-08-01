@@ -32,14 +32,7 @@ export const artworks = [
       "/artworks/Autumn's%20Lullaby.PNG",
       "/artworks/Autumns%20Lullaby_1.PNG",
     ],
-    description: "Autumn's Lullaby**
-
-                  *When the world grows quiet and the moon begins to whisper, autumn sings its gentlest song. Beneath silver light, every leaf becomes a memory, every ripple a quiet verse, and time itself seems to pause in reverence to nature's serenity.*
-
-                  **Autumn's Lullaby** is an original acrylic painting created on a round canvas, celebrating the tranquil beauty of an autumn night. A radiant orange tree stands gracefully beside a calm river, its warm foliage glowing beneath the luminous full moon. The circular composition evokes harmony and completeness, drawing the viewer into a peaceful landscape where earth, water, and moonlight exist in perfect balance.
-
-                  Painted with rich acrylic textures and vibrant hues, this artwork captures the quiet poetry of the changing seasons. The vivid oranges contrast beautifully against the cool blues of the night sky and shimmering water, creating a scene that feels both dreamlike and deeply comforting. *Autumn's Lullaby* is an invitation to pause, reflect, and lose yourself in the soothing embrace of nature's timeless melody.
-"
+    description: "Demo"
     featured: true,
     availability: "Customisation Available",
   },

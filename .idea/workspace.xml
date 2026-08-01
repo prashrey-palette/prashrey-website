@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3f09529-6b18-4100-a555-e1551ef254cb" name="Changes" comment="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery">
-      <change afterPath="$PROJECT_DIR$/public/brand/prashrey-palette-logo.png" afterDir="false" />
+    <list default="true" id="c3f09529-6b18-4100-a555-e1551ef254cb" name="Changes" comment="Commit-11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BrandLogo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BrandLogo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/site.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/site.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +53,7 @@
       <recent name="$PROJECT_DIR$/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/brand" />
       <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/dist/artworks" />
       <recent name="$PROJECT_DIR$/public/artwork" />
@@ -205,7 +203,47 @@
       <option name="project" value="LOCAL" />
       <updated>1785057149781</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery">
+      <option name="closed" value="true" />
+      <created>1785059922818</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1785059922818</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery">
+      <option name="closed" value="true" />
+      <created>1785072132239</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1785072132239</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Commit-10">
+      <option name="closed" value="true" />
+      <created>1785072515358</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1785072515358</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Commit-11">
+      <option name="closed" value="true" />
+      <created>1785081528549</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1785081528549</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Commit-11">
+      <option name="closed" value="true" />
+      <created>1785498110735</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1785498110735</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -226,6 +264,8 @@
     <MESSAGE value="Update-10" />
     <MESSAGE value="Revert last 3 commits" />
     <MESSAGE value="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/cursor/premium-art-studio-gallery' into cursor/premium-art-studio-gallery" />
+    <MESSAGE value="Commit-10" />
+    <MESSAGE value="Commit-11" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit-11" />
   </component>
 </project>
