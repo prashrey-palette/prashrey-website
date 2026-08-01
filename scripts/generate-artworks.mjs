@@ -19,8 +19,8 @@ const VARIANT_SUFFIX = /^(.+?)[\s_]+(\d+)$/i;
 
 const CATEGORIES = [
   "Acrylic",
+  "Textured Art",
   "Pichwai",
-  "Textured Art"
   "Mixed Media",
 ];
 
