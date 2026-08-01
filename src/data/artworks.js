@@ -71,7 +71,7 @@ export const artworks = [
   },
   {
     id: 4,
-    title: "Forest'S Whisper",
+    title: "Forest's Whisper",
     category: "Acrylic",
     medium: "Acrylic on canvas",
     year: "2023",

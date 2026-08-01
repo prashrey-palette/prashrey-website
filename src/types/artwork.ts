@@ -40,4 +40,4 @@ export type NavLink = {
   label: string;
 };
 
-export type ArtworkAvailability = "Available" | "Sold" | "Commission Only";
+export type ArtworkAvailability = "Available" | "Sold" | "Commission Only" |"Customisation Available";
