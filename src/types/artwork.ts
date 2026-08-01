@@ -1,11 +1,8 @@
 export type ArtworkCategory =
   | "Acrylic"
-  | "Watercolor"
-  | "Oil"
-  | "Sketch"
-  | "Mixed Media"
   | "Pichwai"
-  | "Digital Art";
+  | "Textured Art"
+  | "Mixed Media";
 
 export type Artwork = {
   id: number;

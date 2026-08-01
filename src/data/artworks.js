@@ -15,7 +15,8 @@
 export const artworkCategories = [
   "Acrylic",
   "Pichwai",
-  "Mixed Media",
+  "Textured Art",
+  "Mixed Media"
 ];
 
 /** @type {Artwork[]} */
