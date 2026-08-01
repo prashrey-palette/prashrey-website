@@ -26,7 +26,7 @@ const CATEGORIES = [
 const CATEGORY_MEDIUM = {
   Acrylic: "Acrylic on canvas",
   Pichwai: "Pichwai Art",
-  Mixed Media: "Mixed media on board",
+  "Mixed Media": "Mixed media on board",
 };
 
 /** Normalize names so "Autumn's Lullaby", "Autumns Lullaby_1", "Radha-Krishna" group together. */
