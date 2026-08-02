@@ -31,7 +31,7 @@ export default function AboutPage() {
           <ScrollReveal>
             <div className="relative overflow-hidden rounded-2xl border border-white/5">
               <img
-                src="public/PassportPic_Latest.jpg"
+                src="AboutPic.jpg"
                 alt="Prashrey — artist portrait"
                 loading="eager"
                 decoding="async"
