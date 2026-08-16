@@ -424,7 +424,7 @@ export const artworks = [
     category: "Acrylic",
     medium: "Acrylic on canvas",
     year: "2025",
-    dimensions: "2ft x 3ft",
+    dimensions: "2.5ft x 1.5ft",
     image: "/artworks/The%20Nectar%20Pause.PNG",
     images: [
       "/artworks/The%20Nectar%20Pause.PNG",

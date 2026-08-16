@@ -5,15 +5,15 @@ export const testimonials: Testimonial[] = [
     id: "t1",
     quote:
       "Prashrey Palette transformed our space with pieces that feel both timeless and strikingly contemporary. Every work carries a quiet intensity.",
-    author: "Ananya Mehta",
+    author: "Aanchal Srivastava",
     role: "Interior Designer, Mumbai",
   },
   {
     id: "t2",
     quote:
       "The studio's attention to composition and color is extraordinary. Commissioning a portrait was an immersive, collaborative experience.",
-    author: "James Whitfield",
-    role: "Art Collector",
+    author: "Kinnari Shah",
+    role: "Interior Designer, Mumbai",
   },
   {
     id: "t3",
@@ -22,11 +22,5 @@ export const testimonials: Testimonial[] = [
     author: "Priya Desai",
     role: "Gallery Curator",
   },
-  {
-    id: "t4",
-    quote:
-      "From first inquiry to delivery, the professionalism matched the artistry. Our mixed-media piece is the centerpiece of our home.",
-    author: "Elena Rossi",
-    role: "Private Client, London",
-  },
+
 ];

@@ -56,21 +56,19 @@ export default function AboutPage() {
               Contemporary Artist &amp; Founder
             </h2>
             <p className="mt-6 font-sans text-base leading-relaxed text-[#f4f1ec]/60">
-              [Placeholder — Short introduction] Prashrey is a contemporary artist
-              whose work spans devotional themes, nature, and expressive figurative
-              compositions. Based in Mumbai, the studio welcomes collectors,
-              interior designers, and patrons seeking original art with soul.
-            </p>
+              I’m Shreya Pandey, a Pune-based acrylic artist and the founder of Prashrey Palette.
+              With a Fine Arts degree from IISDT, my practice focuses on creating meaningful,
+              contemporary artworks that bring together art, emotion, stories and personal experiences.
+              </p>
 
             <div className="mt-10 space-y-8">
               <div>
                 <h3 className="font-display text-xl text-[#f4f1ec]">Biography</h3>
                 <p className="mt-3 font-sans text-sm leading-relaxed text-[#f4f1ec]/55 md:text-base">
-                  [Placeholder — Detailed biography] From early experiments with
-                  color and form to a mature studio practice, Prashrey has developed
-                  a distinctive visual language rooted in Indian cultural motifs and
-                  contemporary aesthetics. Each piece is hand-crafted with patience,
-                  layering, and an eye for luminous detail.
+                  My studio is based in Pune, where I create original and customised acrylic paintings
+                  for homes, offices and personal spaces. Every commissioned artwork is developed around
+                  the client’s vision, space, story and aesthetic, allowing the painting to become something
+                  truly personal rather than simply a decorative piece.
                 </p>
               </div>
 
@@ -79,10 +77,9 @@ export default function AboutPage() {
                   Artistic Philosophy
                 </h3>
                 <p className="mt-3 font-sans text-sm leading-relaxed text-[#f4f1ec]/55 md:text-base">
-                  [Placeholder] Art should invite pause — a moment of beauty,
-                  devotion, or wonder in everyday life. The studio believes in
-                  intentional mark-making: every stroke carries meaning, and every
-                  finished work is meant to live harmoniously in its chosen space.
+                  Along with commissioned artworks, I regularly participate in art exhibitions and showcase
+                   my original works. I also collaborate with interior designers and architects to create bespoke
+                   paintings that complement residential, hospitality and commercial spaces.
                 </p>
               </div>
 
@@ -91,20 +88,29 @@ export default function AboutPage() {
                   Journey as an Artist
                 </h3>
                 <p className="mt-3 font-sans text-sm leading-relaxed text-[#f4f1ec]/55 md:text-base">
-                  [Placeholder] What began as a personal passion evolved into a
-                  professional studio serving clients across India and abroad.
-                  Today, the practice includes original paintings, custom
-                  commissions, and collaborative projects with designers and galleries.
+                  I work primarily with acrylics on canvas, incorporating textures, layers, fine detailing, mixed techniques
+                  and other materials wherever they add depth and character to the artwork.
+                  From concept development to the final artwork, I personally oversee the creative process to ensure attention
+                  to detail and a high-quality finish. Customised artworks are delivered pan India, making it possible to bring
+                  a thoughtfully created piece of art to your space, wherever you are.
                 </p>
               </div>
 
               <div>
                 <h3 className="font-display text-xl text-[#f4f1ec]">Background</h3>
                 <p className="mt-3 font-sans text-sm leading-relaxed text-[#f4f1ec]/55 md:text-base">
-                  [Placeholder] Trained through years of studio practice and
-                  mentorship, with influences ranging from classical Indian art to
-                  modern contemporary expression. Mediums include acrylic, watercolor,
-                  oil, sketch, and mixed media.
+                  Prashrey Palette is where art meets personal stories, spaces and emotions — created especially for you.
+                  My studio is based in Pune, where I create original and customised acrylic paintings for homes, offices and personal spaces.
+                  Every commissioned artwork is developed around the client’s vision, space, story and aesthetic, allowing the painting to
+                  become something truly personal rather than simply a decorative piece.
+                  Along with commissioned artworks, I regularly participate in art exhibitions and showcase my original works. I also collaborate
+                  with interior designers and architects to create bespoke paintings that complement residential, hospitality and commercial spaces.
+                  I work primarily with acrylics on canvas, incorporating textures, layers, fine detailing, mixed techniques and other materials
+                  wherever they add depth and character to the artwork.
+                  From concept development to the final artwork, I personally oversee the creative process to ensure attention to detail and a
+                  high-quality finish. Customised artworks are delivered pan India, making it possible to bring a thoughtfully created piece of art
+                  to your space, wherever you are.
+                  Prashrey Palette is where art meets personal stories, spaces and emotions — created especially for you.
                 </p>
               </div>
             </div>

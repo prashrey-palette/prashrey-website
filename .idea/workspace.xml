@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3f09529-6b18-4100-a555-e1551ef254cb" name="Changes" comment="Commit-11" />
+    <list default="true" id="c3f09529-6b18-4100-a555-e1551ef254cb" name="Changes" comment="Commit-11">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/artworks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/artworks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/testimonials.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/testimonials.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AboutPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AboutPage.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,19 +48,20 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/prateeksrivastava/Downloads/prashrey-website/public&quot;
+    &quot;last_opened_file_path&quot;: &quot;/Users/prateeksrivastava/Downloads/prashrey-website/src&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/brand" />
       <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/dist/artworks" />
       <recent name="$PROJECT_DIR$/public/artwork" />
-      <recent name="$PROJECT_DIR$/public" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -353,7 +359,23 @@
       <option name="project" value="LOCAL" />
       <updated>1785657909920</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Commit-11">
+      <option name="closed" value="true" />
+      <created>1785658093712</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1785658093712</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Commit-11">
+      <option name="closed" value="true" />
+      <created>1785658374964</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1785658374964</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
