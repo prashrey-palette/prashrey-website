@@ -310,7 +310,7 @@ export const artworkMetadata = [
     dimensions: "12' x 10'",
     description:
       "Shiv Ganesh beautifully portrays the sacred father–son bond between Lord Shiva and Lord Ganesha, symbolising love, protection, wisdom, and strong family connections. Created in mixed media and finished with a glossy resin coating, the artwork carries both divine presence and a meaningful message of family bonding and togetherness.",
-    featured: true,
+    featured: false,
     homepageOrder: 6,
     hero: false,
     availability: "Available",
