@@ -21,21 +21,20 @@ export const artworkCategories = [
 /** @type {Artwork[]} */
 export const artworks = [
   {
-
     id: 1,
     title: "Shiva-Shakti",
     category: "Acrylic",
     medium: "Acrylic on canvas",
     year: "2026",
     dimensions: '24"x18"',
-    image: "/artworks/Timeless%20Traveller.PNG",
+    image: "/artworks/Shiva%20Shakti.PNG",
     images: [
       "/artworks/Shiva%20Shakti.PNG",
       "/artworks/Shiva%20Shakti%20_1.heic",
     ],
     description: "Shiva Shakti — a timeless union of divine strength and feminine energy, where consciousness and creation become one.",
     featured: true,
-    availability: "Available",
+    availability: "Customisation Available",
   },
   {
     id: 2,
@@ -458,7 +457,7 @@ export const artworks = [
       medium: "Acrylic on canvas",
       year: "2026",
       dimensions: '24"x24"',
-      image: "/artworks/Timeless%20Traveller.PNG",
+      image: "/artworks/Kashi%20The%20Abode%20of%20Shiva.PNG",
       images: [
         "/artworks/Kashi%20The%20Abode%20of%20Shiva.PNG",
         "/artworks/Kashi%20The%20Abode%20of%20Shiva%20_1.heic",
