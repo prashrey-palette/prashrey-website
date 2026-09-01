@@ -21,20 +21,21 @@ export const artworkCategories = [
 /** @type {Artwork[]} */
 export const artworks = [
   {
+
     id: 1,
-    title: "Autumn's Lullaby",
+    title: "Shiva-Shakti",
     category: "Acrylic",
     medium: "Acrylic on canvas",
-    year: "2023",
-    dimensions: "10 inches",
-    image: "/artworks/Autumn's%20Lullaby.PNG",
+    year: "2026",
+    dimensions: '24"x18"',
+    image: "/artworks/Timeless%20Traveller.PNG",
     images: [
-      "/artworks/Autumn's%20Lullaby.PNG",
-      "/artworks/Autumns%20Lullaby_1.PNG",
+      "/artworks/Shiva%20Shakti.PNG",
+      "/artworks/Shiva%20Shakti%20_1.heic",
     ],
-    description: "Autumn’s Lullaby captures the quiet beauty of an autumn evening, where warm sunset hues, a peaceful landscape, and gentle reflections come together to create a sense of calm and stillness."
+    description: "Shiva Shakti — a timeless union of divine strength and feminine energy, where consciousness and creation become one.",
     featured: true,
-    availability: "Customisation Available",
+    availability: "Available",
   },
   {
     id: 2,
@@ -50,7 +51,7 @@ export const artworks = [
       "/artworks/Bal%20Krishna%20_2.PNG",
     ],
     description: "Bal Krishna beautifully captures the innocence and divine charm of little Krishna with his beloved calf, symbolising pure love, compassion, and the tender bond between Krishna and all living beings.",
-    featured: true,
+    featured: false,
     availability: "Customisation Available",
   },
   {
@@ -82,7 +83,7 @@ export const artworks = [
       "/artworks/Forest's%20Whisper%20_1.PNG",
     ],
     description: "Forest’s Whisper captures the quiet magic of a woodland stream surrounded by rich greens and warm autumn tones, evoking the peaceful feeling of being immersed in nature.",
-    featured: true,
+    featured: false,
     availability: "Available",
   },
   {
@@ -98,7 +99,7 @@ export const artworks = [
       "/artworks/Gaj%20Milan%3AThe%20Sacred%20Union%20_1.PNG",
     ],
     description: "Gaj Milan – The Sacred Union is a contemporary Pichwai-inspired artwork symbolising love, harmony, and togetherness. The graceful elephants and intertwined trunks celebrate a beautiful union rooted in tradition and auspiciousness.",
-    featured: true,
+    featured: false,
     availability: "Available",
   },
   {
@@ -158,7 +159,7 @@ export const artworks = [
     dimensions: "3ft x 2.5ft",
     image: "/artworks/Geometry%20Of%20Peace.PNG",
     description: "Geometry of Peace is an original, hand-painted low-poly artwork inspired by Tara, the feminine embodiment of enlightened wisdom and compassion in Buddhism. Built entirely through intricate geometric forms, the artwork brings a digital-inspired aesthetic to traditional canvas, symbolising inner stillness, balance, and peace.",
-    featured: false,
+    featured: true,
     availability: "Available",
   },
   {
@@ -256,7 +257,7 @@ export const artworks = [
       "/artworks/Radha%20Krishna%20_1.PNG",
     ],
     description: "Radha Krishna is a vibrant abstract portrayal of divine love and eternal connection. Created using a combination of palette knife and brushwork, rich textures, bold colours, and intricate details bring depth and expressive energy to the artwork.",
-    featured: false,
+    featured: true,
     availability: "Available",
   },
   {
@@ -321,7 +322,7 @@ export const artworks = [
       "/artworks/Shiv-Ganesh.PNG",
     ],
     description: "Shiv Ganesh beautifully portrays the sacred father–son bond between Lord Shiva and Lord Ganesha, symbolising love, protection, wisdom, and strong family connections. Created in mixed media and finished with a glossy resin coating, the artwork carries both divine presence and a meaningful message of family bonding and togetherness.",
-    featured: false,
+    featured: true,
     availability: "Available",
   },
   {
@@ -449,5 +450,37 @@ export const artworks = [
     description: "Timeless Traveller captures a sea turtle gliding peacefully through the blue depths of the ocean. The artwork reflects the turtle’s quiet strength, resilience, and timeless journey through the underwater world.",
     featured: false,
     availability: "Available",
-  }
+  },
+    {
+      id: 28,
+      title: "Kaashi: The Abode of Shiva",
+      category: "Acrylic",
+      medium: "Acrylic on canvas",
+      year: "2026",
+      dimensions: '24"x24"',
+      image: "/artworks/Timeless%20Traveller.PNG",
+      images: [
+        "/artworks/Kashi%20The%20Abode%20of%20Shiva.PNG",
+        "/artworks/Kashi%20The%20Abode%20of%20Shiva%20_1.heic",
+      ],
+      description: "Kashi: The Abode of Shiva — where every temple, ghat, and sacred silhouette comes together as a divine portrait of Lord Shiva.",
+      featured: true,
+      availability: "Available",
+    },
+    {
+        id: 29,
+        title: "Autumn's Lullaby",
+        category: "Acrylic",
+        medium: "Acrylic on canvas",
+        year: "2023",
+        dimensions: "10 inches",
+        image: "/artworks/Autumn's%20Lullaby.PNG",
+        images: [
+          "/artworks/Autumn's%20Lullaby.PNG",
+          "/artworks/Autumns%20Lullaby_1.PNG",
+        ],
+        description: "Autumn’s Lullaby captures the quiet beauty of an autumn evening, where warm sunset hues, a peaceful landscape, and gentle reflections come together to create a sense of calm and stillness."
+        featured: false,
+        availability: "Customisation Available",
+    }
 ];
