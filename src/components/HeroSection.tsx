@@ -54,7 +54,10 @@ export default function HeroSection() {
                 <div className="relative overflow-hidden rounded-sm border-[10px] border-[#6E5131] bg-[#6E5131] p-2 shadow-2xl shadow-[#282820]/25 md:border-[14px] md:p-3">
                   <div className="overflow-hidden rounded-sm border border-[#F7F3EB]/60">
                     <div className="aspect-[4/5] overflow-hidden sm:aspect-[3/4]">
-                      <OptimizedImage src={featuredArtwork.image} alt={featuredArtwork.title} priority className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-105" sizes="(max-width: 1024px) 90vw, 45vw" />
+                      <img
+                        src={featuredArtwork.image}
+                        alt={featuredArtwork.title}
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"/>
                     </div>
                   </div>
                 </div>
