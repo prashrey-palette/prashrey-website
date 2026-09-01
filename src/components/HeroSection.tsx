@@ -5,7 +5,7 @@ import BrandLogo from "./BrandLogo";
 import HeroTextureBackground from "./HeroTextureBackground";
 import OptimizedImage from "./OptimizedImage";
 
-const featuredArtwork = artworks.find((artwork) => artwork.featured) ?? artworks[0];
+const featuredArtwork = artworks.find((artwork) => artwork.title === "Shiva-Shakti") ?? artworks[0];
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function HeroSection() {
