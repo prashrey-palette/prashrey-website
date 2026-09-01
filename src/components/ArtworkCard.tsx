@@ -8,7 +8,7 @@ type ArtworkCardProps = {
 };
 
 export default function ArtworkCard({ artwork, index = 0 }: ArtworkCardProps) {
-  const imageCount = artwork.images?.length ?? 1;
+  const imageCount = artwork.images.length;
 
   return (
     <article
@@ -18,14 +18,14 @@ export default function ArtworkCard({ artwork, index = 0 }: ArtworkCardProps) {
       }}
     >
       <Link
-        to={`/portfolio/${artwork.id}`}
+        to={`/portfolio/${artwork.slug}`}
         className="block"
         aria-label={`View ${artwork.title}`}
       >
         <div className="relative overflow-hidden rounded-lg border border-white/5 bg-[#121214]/50 shadow-lg shadow-black/20 transition-all duration-500 group-hover:border-[#c9a962]/25 group-hover:shadow-[#c9a962]/10 group-hover:-translate-y-1">
           <div className="aspect-[4/5] overflow-hidden sm:aspect-[3/4]">
             <OptimizedImage
-              src={artwork.image}
+              image={artwork.image}
               alt={artwork.title}
               className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-105"
             />

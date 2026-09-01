@@ -41,7 +41,7 @@ export default function ArtworkGrid() {
 
         <div className="mt-14 columns-1 gap-6 sm:columns-2 lg:columns-3">
           {filtered.map((artwork, index) => (
-            <div key={artwork.id} className="mb-6">
+            <div key={artwork.slug} className="mb-6">
               <ArtworkCard artwork={artwork} index={index} />
             </div>
           ))}

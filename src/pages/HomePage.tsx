@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import HeroSection from "../components/HeroSection";
 import ScrollReveal from "../components/ScrollReveal";
 import TestimonialsSection from "../components/TestimonialsSection";
-import { artworks } from "../data/artworks";
+import { homepageArtworks } from "../data/artworks";
 import { usePageMeta } from "../hooks/usePageMeta";
 import OptimizedImage from "../components/OptimizedImage";
 
@@ -12,8 +12,6 @@ export default function HomePage() {
     description:
       "Prashrey Palette Art Studio — original paintings inspired by nature, emotion, culture, and timeless artistic expression.",
   });
-
-  const featured = artworks.filter((a) => a.featured).slice(0, 6);
 
   return (
     <>
@@ -39,15 +37,15 @@ export default function HomePage() {
           </ScrollReveal>
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((artwork, index) => (
-              <ScrollReveal key={artwork.id} delay={index * 0.05}>
+            {homepageArtworks.map((artwork, index) => (
+              <ScrollReveal key={artwork.slug} delay={index * 0.05}>
                 <Link
-                  to={`/portfolio/${artwork.id}`}
+                  to={`/portfolio/${artwork.slug}`}
                   className="group block overflow-hidden rounded-sm border border-[#282820]/10 bg-white shadow-md shadow-[#282820]/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#B88435]/50 hover:shadow-lg hover:shadow-[#B88435]/10"
                 >
                   <div className="aspect-[4/5] overflow-hidden">
                     <OptimizedImage
-                      src={artwork.image}
+                      image={artwork.image}
                       alt={artwork.title}
                       className="h-full w-full transition-transform duration-700 group-hover:scale-105"
                     />

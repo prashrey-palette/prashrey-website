@@ -1,84 +1,115 @@
 /**
- * Generates responsive WebP versions of artwork images for faster loading.
- * Requires: npm install sharp --save-dev
- *
- * Usage: npm run optimize:images
+ * Generates exact responsive WebP variants for metadata-declared PNG/JPG images.
+ * A content-hash manifest prevents stale WebPs after an original is replaced.
  */
-import { mkdir, readdir, stat } from "node:fs/promises";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
+import { dirname, extname, join } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const ARTWORKS_DIR = join(ROOT, "public", "artworks");
 const WEBP_DIR = join(ARTWORKS_DIR, "webp");
+const METADATA_FILE = join(ROOT, "src", "data", "artworkMetadata.js");
+const MANIFEST_FILE = join(__dirname, "artwork-image-manifest.json");
 
-const IMAGE_EXT = /\.(jpe?g|png)$/i;
+const CONVERTIBLE_IMAGE = /\.(jpe?g|png)$/i;
 const WIDTHS = [640, 1024, 1536];
 
-async function main() {
-  let sharp;
+function optimizedFilename(filename, width) {
+  const stem = filename.slice(0, -extname(filename).length);
+  return `${stem}${width ? `-${width}` : ""}.webp`;
+}
+
+async function exists(path) {
   try {
-    sharp = (await import("sharp")).default;
+    await stat(path);
+    return true;
   } catch {
-    console.warn(
-      "Skipping image optimization — install sharp: npm install --save-dev sharp",
-    );
-    process.exit(0);
+    return false;
   }
+}
+
+async function fileHash(path) {
+  const contents = await readFile(path);
+  return createHash("sha256").update(contents).digest("hex");
+}
+
+async function loadManifest() {
+  try {
+    const manifest = JSON.parse(await readFile(MANIFEST_FILE, "utf8"));
+    if (manifest?.version === 1 && manifest.sources) return manifest;
+  } catch {
+    // A missing or invalid manifest safely causes declared images to regenerate.
+  }
+  return { version: 1, sources: {} };
+}
+
+async function main() {
+  const sharp = (await import("sharp")).default;
+  const metadataUrl = `${pathToFileURL(METADATA_FILE).href}?optimized=${Date.now()}`;
+  const { artworkMetadata } = await import(metadataUrl);
+  const filenames = [
+    ...new Set(
+      artworkMetadata.flatMap((artwork) => [
+        artwork.primaryImage,
+        ...(artwork.additionalImages ?? []),
+      ]),
+    ),
+  ].filter((filename) => CONVERTIBLE_IMAGE.test(filename));
 
   await mkdir(WEBP_DIR, { recursive: true });
+  const previousManifest = await loadManifest();
+  const nextManifest = { version: 1, sources: {} };
+  let optimizedCount = 0;
+  let unchangedCount = 0;
 
-  const files = (await readdir(ARTWORKS_DIR)).filter(
-    (f) => IMAGE_EXT.test(f) && f !== "webp",
-  );
+  for (const filename of filenames) {
+    const input = join(ARTWORKS_DIR, filename);
+    const hash = await fileHash(input);
+    const outputs = [
+      optimizedFilename(filename),
+      ...WIDTHS.map((width) => optimizedFilename(filename, width)),
+    ];
+    const outputsExist = (
+      await Promise.all(outputs.map((output) => exists(join(WEBP_DIR, output))))
+    ).every(Boolean);
 
-  let converted = 0;
-  for (const file of files) {
-    const input = join(ARTWORKS_DIR, file);
-    const base = file.replace(/\.[^.]+$/, "");
-    const inputStat = await stat(input);
+    if (previousManifest.sources[filename] === hash && outputsExist) {
+      unchangedCount += 1;
+      nextManifest.sources[filename] = hash;
+      continue;
+    }
 
     for (const width of WIDTHS) {
-      const output = join(WEBP_DIR, `${base}-${width}.webp`);
-      try {
-        const outputStat = await stat(output);
-        if (outputStat.mtimeMs >= inputStat.mtimeMs) continue;
-      } catch {
-        /* convert */
-      }
-
       await sharp(input)
         .rotate()
         .resize({ width, withoutEnlargement: true })
         .webp({ quality: 82, effort: 4 })
-        .toFile(output);
-      converted += 1;
+        .toFile(join(WEBP_DIR, optimizedFilename(filename, width)));
+      optimizedCount += 1;
     }
 
-    const fullOutput = join(WEBP_DIR, `${base}.webp`);
-    try {
-      const outputStat = await stat(fullOutput);
-      if (outputStat.mtimeMs < inputStat.mtimeMs) {
-        await sharp(input)
-          .rotate()
-          .webp({ quality: 85, effort: 4 })
-          .toFile(fullOutput);
-        converted += 1;
-      }
-    } catch {
-      await sharp(input)
-        .rotate()
-        .webp({ quality: 85, effort: 4 })
-        .toFile(fullOutput);
-      converted += 1;
-    }
+    await sharp(input)
+      .rotate()
+      .webp({ quality: 85, effort: 4 })
+      .toFile(join(WEBP_DIR, optimizedFilename(filename)));
+    optimizedCount += 1;
+    nextManifest.sources[filename] = hash;
   }
 
-  console.log(`Optimized ${converted} WebP files → public/artworks/webp/`);
+  await writeFile(
+    MANIFEST_FILE,
+    `${JSON.stringify(nextManifest, null, 2)}\n`,
+    "utf8",
+  );
+  console.log(
+    `Image optimization complete: ${optimizedCount} file(s) written, ${unchangedCount} source image(s) already current.`,
+  );
 }
 
-main().catch((err) => {
-  console.error(err);
+main().catch((error) => {
+  console.error(`Image optimization failed: ${error.message || error}`);
   process.exit(1);
 });

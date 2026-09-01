@@ -1,279 +1,346 @@
 /**
- * Scans public/artworks/ and generates src/data/artworks.js.
- * Groups variant files (Name, Name_1, Name _2, etc.) into a single artwork entry.
- * Preserves existing metadata when re-run.
- *
- * Usage: node scripts/generate-artworks.mjs
+ * Validates owner-managed artwork metadata and generates browser-ready data.
+ * The generated module contains only exact, verified original and WebP paths.
  */
+import { createHash } from "node:crypto";
 import { readdir, readFile, writeFile } from "node:fs/promises";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { basename, dirname, extname, join } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const ARTWORKS_DIR = join(ROOT, "public", "artworks");
-const OUTPUT = join(ROOT, "src", "data", "artworks.js");
+const WEBP_DIR = join(ARTWORKS_DIR, "webp");
+const METADATA_FILE = join(ROOT, "src", "data", "artworkMetadata.js");
+const MANIFEST_FILE = join(__dirname, "artwork-image-manifest.json");
+const OUTPUT_FILE = join(ROOT, "src", "data", "artworks.js");
 
-const IMAGE_EXT = /\.(jpe?g|png|gif|webp|avif)$/i;
-const VARIANT_SUFFIX = /^(.+?)[\s_]+(\d+)$/i;
-
-const CATEGORIES = [
-  "Acrylic",
-  "Pichwai",
-  "Mixed Media",
+const SUPPORTED_IMAGE = /\.(jpe?g|png|webp)$/i;
+const HEIC_IMAGE = /\.hei[cf]$/i;
+const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const RESPONSIVE_WIDTHS = [640, 1024, 1536];
+const AVAILABILITY_VALUES = [
+  "Available",
+  "Sold",
+  "Commission Only",
+  "Customisation Available",
+];
+const REQUIRED_STRING_FIELDS = [
+  "slug",
+  "title",
+  "primaryImage",
+  "category",
+  "medium",
+  "year",
+  "dimensions",
+  "description",
+  "availability",
 ];
 
-const CATEGORY_MEDIUM = {
-  Acrylic: "Acrylic on canvas",
-  Pichwai: "Pichwai Art",
-  "Mixed Media": "Mixed media on board",
-};
-
-/** Normalize names so "Autumn's Lullaby", "Autumns Lullaby_1", "Radha-Krishna" group together. */
-function normalizeGroupKey(name) {
-  return name
-    .trim()
-    .toLowerCase()
-    .replace(/[''`´]/g, "")
-    .replace(/[-_]+/g, " ")
-    .replace(/[^\w\s:]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+function fail(message) {
+  throw new Error(`Artwork validation failed: ${message}`);
 }
 
-function parseFilename(filename) {
-  const ext = filename.match(/\.[^.]+$/i)?.[0] ?? "";
-  const stem = filename.slice(0, -ext.length);
-  const variantMatch = stem.match(VARIANT_SUFFIX);
+function encodeFilePath(directory, filename) {
+  return `${directory}/${encodeURIComponent(filename)}`;
+}
 
-  if (variantMatch) {
-    const baseName = variantMatch[1].trim();
-    return {
-      filename,
-      baseName,
-      variant: Number.parseInt(variantMatch[2], 10),
-      groupKey: normalizeGroupKey(baseName),
-    };
+function optimizedFilename(filename, width) {
+  const stem = filename.slice(0, -extname(filename).length);
+  return `${stem}${width ? `-${width}` : ""}.webp`;
+}
+
+async function listFiles(directory) {
+  try {
+    const entries = await readdir(directory, { withFileTypes: true });
+    return entries.filter((entry) => entry.isFile()).map((entry) => entry.name);
+  } catch (error) {
+    if (error?.code === "ENOENT") return [];
+    throw error;
   }
-
-  const baseName = stem.trim();
-  return {
-    filename,
-    baseName,
-    variant: 0,
-    groupKey: normalizeGroupKey(baseName),
-  };
 }
 
-function imagePath(filename) {
-  return `/artworks/${encodeURIComponent(filename)}`;
+async function fileHash(path) {
+  const contents = await readFile(path);
+  return createHash("sha256").update(contents).digest("hex");
 }
 
-function titleFromBaseName(baseName) {
-  if (/^[0-9A-F]{8}-/i.test(baseName)) {
+async function loadManifest() {
+  try {
+    const manifest = JSON.parse(await readFile(MANIFEST_FILE, "utf8"));
+    return manifest?.version === 1 && manifest.sources ? manifest : null;
+  } catch {
     return null;
   }
-
-  return baseName
-    .replace(/[-_]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function pickDisplayBaseName(entries) {
-  const primaryCandidates = entries.filter((entry) => entry.variant === 0);
-  const pool = primaryCandidates.length > 0 ? primaryCandidates : entries;
+function validateMetadata(metadata, categories, originalFiles) {
+  if (!Array.isArray(metadata) || metadata.length === 0) {
+    fail("artworkMetadata must contain at least one artwork.");
+  }
 
-  return pool
-    .slice()
-    .sort((a, b) => scoreBaseName(b.baseName) - scoreBaseName(a.baseName))[0]
-    .baseName;
-}
+  if (!Array.isArray(categories) || categories.length === 0) {
+    fail("artworkCategories must contain at least one category.");
+  }
 
-function scoreBaseName(name) {
-  let score = 0;
-  if (/['']/.test(name)) score += 20;
-  if (!/-/.test(name)) score += 10;
-  if (/^[A-Z]/.test(name)) score += 5;
-  return score + name.length * 0.01;
-}
+  const originalFileLookup = new Map(
+    originalFiles.map((filename) => [filename.toLowerCase(), filename]),
+  );
+  const slugs = new Set();
+  const imageOwners = new Map();
+  const optimizedStems = new Map();
+  const homepageOrders = new Map();
+  const heroes = [];
 
-function escapeString(str) {
-  return str.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-}
+  for (const artwork of metadata) {
+    const label = artwork?.title || artwork?.slug || "Untitled artwork";
 
-async function loadExistingMetadata() {
-  try {
-    const content = await readFile(OUTPUT, "utf8");
-    const map = new Map();
-    const blockRegex =
-      /\{[\s\S]*?id:\s*(\d+),[\s\S]*?title:\s*"([^"]*)"[\s\S]*?category:\s*"([^"]*)"[\s\S]*?medium:\s*"([^"]*)"[\s\S]*?year:\s*"([^"]*)"[\s\S]*?dimensions:\s*"([^"]*)"[\s\S]*?image:\s*"\/artworks\/([^"]+)"[\s\S]*?description:\s*"([^"]*)"[\s\S]*?featured:\s*(true|false)[\s\S]*?availability:\s*"([^"]*)"/g;
+    for (const field of REQUIRED_STRING_FIELDS) {
+      if (typeof artwork?.[field] !== "string" || !artwork[field].trim()) {
+        fail(`${label} must have a non-empty ${field}.`);
+      }
+    }
 
-    let match;
-    while ((match = blockRegex.exec(content)) !== null) {
-      const primaryFilename = decodeURIComponent(match[7]);
-      const parsed = parseFilename(primaryFilename);
-      const meta = {
-        id: Number.parseInt(match[1], 10),
-        title: match[2],
-        category: match[3],
-        medium: match[4],
-        year: match[5],
-        dimensions: match[6],
-        description: match[8],
-        featured: match[9] === "true",
-        availability: match[10] || "Available",
-      };
+    if (!SLUG.test(artwork.slug)) {
+      fail(
+        `${label} has invalid slug "${artwork.slug}". Use lowercase words separated by single hyphens.`,
+      );
+    }
 
-      if (
-        meta.description === "true" ||
-        meta.description === "false" ||
-        meta.description.length < 3
-      ) {
-        continue;
+    if (slugs.has(artwork.slug)) {
+      fail(`Duplicate slug "${artwork.slug}".`);
+    }
+    slugs.add(artwork.slug);
+
+    if (!categories.includes(artwork.category)) {
+      fail(
+        `${label} uses unknown category "${artwork.category}". Choose one of: ${categories.join(", ")}.`,
+      );
+    }
+
+    if (!AVAILABILITY_VALUES.includes(artwork.availability)) {
+      fail(
+        `${label} uses unknown availability "${artwork.availability}". Choose one of: ${AVAILABILITY_VALUES.join(", ")}.`,
+      );
+    }
+
+    if (typeof artwork.featured !== "boolean") {
+      fail(`${label} must set featured to true or false.`);
+    }
+
+    if (typeof artwork.hero !== "boolean") {
+      fail(`${label} must set hero to true or false.`);
+    }
+
+    if (artwork.featured) {
+      if (!Number.isInteger(artwork.homepageOrder) || artwork.homepageOrder < 1) {
+        fail(
+          `${label} is featured and must have a positive integer homepageOrder.`,
+        );
       }
 
-      map.set(parsed.groupKey, meta);
-      map.set(normalizeGroupKey(meta.title), meta);
+      const existingTitle = homepageOrders.get(artwork.homepageOrder);
+      if (existingTitle) {
+        fail(
+          `Duplicate homepageOrder ${artwork.homepageOrder} for "${existingTitle}" and "${label}".`,
+        );
+      }
+      homepageOrders.set(artwork.homepageOrder, label);
+    } else if (artwork.homepageOrder !== null) {
+      fail(`${label} is not featured, so homepageOrder must be null.`);
     }
 
-    return map;
-  } catch {
-    return new Map();
+    if (artwork.hero) {
+      heroes.push(label);
+      if (!artwork.featured) {
+        fail(`${label} is the hero and must also set featured: true.`);
+      }
+    }
+
+    const additionalImages = artwork.additionalImages ?? [];
+    if (!Array.isArray(additionalImages)) {
+      fail(`${label} additionalImages must be an array.`);
+    }
+
+    const filenames = [artwork.primaryImage, ...additionalImages];
+    for (const filename of filenames) {
+      if (typeof filename !== "string" || !filename.trim()) {
+        fail(`${label} contains an empty image filename.`);
+      }
+      if (basename(filename) !== filename) {
+        fail(`${label} image "${filename}" must be a filename, not a path.`);
+      }
+      if (HEIC_IMAGE.test(filename)) {
+        fail(
+          `${label} references HEIC file "${filename}". Convert it to PNG, JPG/JPEG, or WebP first.`,
+        );
+      }
+      if (!SUPPORTED_IMAGE.test(filename)) {
+        fail(
+          `${label} image "${filename}" is unsupported. Use PNG, JPG/JPEG, or WebP.`,
+        );
+      }
+
+      const actualFilename = originalFileLookup.get(filename.toLowerCase());
+      if (!actualFilename) {
+        fail(
+          `${label} references missing image "${filename}" in public/artworks/.`,
+        );
+      }
+      if (actualFilename !== filename) {
+        fail(
+          `${label} image case does not match the file on disk: use "${actualFilename}".`,
+        );
+      }
+
+      const imageKey = filename.toLowerCase();
+      const existingOwner = imageOwners.get(imageKey);
+      if (existingOwner) {
+        fail(
+          `Image "${filename}" is assigned to both "${existingOwner}" and "${label}".`,
+        );
+      }
+      imageOwners.set(imageKey, label);
+
+      if (!/\.webp$/i.test(filename)) {
+        const stem = filename.slice(0, -extname(filename).length).toLowerCase();
+        const existingImage = optimizedStems.get(stem);
+        if (existingImage) {
+          fail(
+            `Images "${existingImage}" and "${filename}" would produce the same WebP filenames. Rename one source image.`,
+          );
+        }
+        optimizedStems.set(stem, filename);
+      }
+    }
   }
+
+  if (heroes.length !== 1) {
+    fail(
+      `Exactly one artwork must have hero: true. Found ${heroes.length}${heroes.length ? ` (${heroes.join(", ")})` : ""}.`,
+    );
+  }
+
+  return imageOwners;
 }
 
-function groupFiles(files) {
-  const groups = new Map();
+async function buildImage(filename, optimizedFiles, manifest) {
+  const image = {
+    src: encodeFilePath("/artworks", filename),
+  };
 
-  for (const filename of files) {
-    const parsed = parseFilename(filename);
-    if (!groups.has(parsed.groupKey)) {
-      groups.set(parsed.groupKey, []);
-    }
-    groups.get(parsed.groupKey).push(parsed);
+  if (/\.webp$/i.test(filename)) return image;
+
+  const currentHash = await fileHash(join(ARTWORKS_DIR, filename));
+  if (manifest?.sources?.[filename] !== currentHash) return image;
+
+  const fullFilename = optimizedFilename(filename);
+  if (optimizedFiles.has(fullFilename)) {
+    image.optimizedSrc = encodeFilePath("/artworks/webp", fullFilename);
   }
 
-  return [...groups.entries()]
-    .map(([groupKey, entries]) => {
-      entries.sort((a, b) => {
-        if (a.variant !== b.variant) return a.variant - b.variant;
-        return a.filename.localeCompare(b.filename, undefined, {
-          sensitivity: "base",
-        });
-      });
+  const srcSet = RESPONSIVE_WIDTHS.map((width) => ({
+    filename: optimizedFilename(filename, width),
+    width,
+  }))
+    .filter(({ filename: candidate }) => optimizedFiles.has(candidate))
+    .map(({ filename: candidate, width }) => ({
+      src: encodeFilePath("/artworks/webp", candidate),
+      width,
+    }));
 
-      const images = entries.map((entry) => imagePath(entry.filename));
-
-      return {
-        groupKey,
-        baseName: pickDisplayBaseName(entries),
-        primaryFilename: entries[0].filename,
-        images,
-      };
-    })
-    .sort((a, b) =>
-      a.baseName.localeCompare(b.baseName, undefined, {
-        sensitivity: "base",
-      }),
-    );
+  if (srcSet.length > 0) image.srcSet = srcSet;
+  return image;
 }
 
 async function main() {
-  const files = (await readdir(ARTWORKS_DIR))
-    .filter((f) => IMAGE_EXT.test(f))
-    .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+  const metadataUrl = `${pathToFileURL(METADATA_FILE).href}?generated=${Date.now()}`;
+  const { artworkMetadata, artworkCategories } = await import(metadataUrl);
+  const originalFiles = await listFiles(ARTWORKS_DIR);
+  const optimizedFiles = new Set(await listFiles(WEBP_DIR));
+  const manifest = await loadManifest();
+  const imageOwners = validateMetadata(
+    artworkMetadata,
+    artworkCategories,
+    originalFiles,
+  );
 
-  const existing = await loadExistingMetadata();
-  const groups = groupFiles(files);
-  let untitledCount = 0;
+  const artworks = [];
+  for (const [index, metadata] of artworkMetadata.entries()) {
+    const filenames = [
+      metadata.primaryImage,
+      ...(metadata.additionalImages ?? []),
+    ];
+    const images = [];
+    for (const filename of filenames) {
+      images.push(await buildImage(filename, optimizedFiles, manifest));
+    }
 
-  const artworks = groups.map((group, index) => {
-    const saved = existing.get(group.groupKey);
-    const derivedTitle = titleFromBaseName(group.baseName);
-    const category =
-      saved?.category && CATEGORIES.includes(saved.category)
-        ? saved.category
-        : CATEGORIES[index % CATEGORIES.length];
-
-    if (!derivedTitle) untitledCount += 1;
-
-    const defaultTitle =
-      derivedTitle ?? `Studio Piece ${String(untitledCount).padStart(2, "0")}`;
-
-    return {
+    const {
+      primaryImage: _primaryImage,
+      additionalImages: _additionalImages,
+      ...content
+    } = metadata;
+    artworks.push({
       id: index + 1,
-      title: saved?.title ?? defaultTitle,
-      category,
-      medium: saved?.medium ?? CATEGORY_MEDIUM[category],
-      year: saved?.year ?? "2025",
-      dimensions: saved?.dimensions ?? "—",
-      image: group.images[0],
-      images: group.images,
-      description:
-        saved?.description ??
-        (derivedTitle
-          ? `A studio work titled "${defaultTitle}". Update this description in src/data/artworks.js.`
-          : "Placeholder entry — update the title, category, and description in src/data/artworks.js."),
-      featured: saved?.featured ?? index < 6,
-      availability: saved?.availability ?? "Available",
-    };
-  });
+      ...content,
+      image: images[0],
+      images,
+    });
+  }
 
-  const header = `/**
- * Artwork gallery data for Prashrey Palette Art Studio.
- *
- * ADD NEW IMAGES: drop files into public/artworks/
- *   - Base image:   My Artwork.PNG
- *   - Extra views:  My Artwork_1.PNG, My Artwork _2.PNG  (grouped automatically)
- * EDIT METADATA: update title, category, medium, year, dimensions, description below
- * REGENERATE LIST: npm run generate:artworks (preserves your metadata edits)
+  const ignoredHeic = originalFiles.filter((filename) => HEIC_IMAGE.test(filename));
+  const unreferencedImages = originalFiles.filter(
+    (filename) =>
+      SUPPORTED_IMAGE.test(filename) && !imageOwners.has(filename.toLowerCase()),
+  );
+
+  const output = `/**
+ * GENERATED FILE — DO NOT EDIT.
+ * Edit src/data/artworkMetadata.js, then run npm run build.
+ * Generated by scripts/generate-artworks.mjs.
  *
  * @typedef {import("../types/artwork").Artwork} Artwork
  * @typedef {import("../types/artwork").ArtworkCategory} ArtworkCategory
  */
 
 /** @type {ArtworkCategory[]} */
-export const artworkCategories = ${JSON.stringify(CATEGORIES, null, 2)};
+export const artworkCategories = ${JSON.stringify(artworkCategories, null, 2)};
 
 /** @type {Artwork[]} */
-export const artworks = [
+export const artworks = ${JSON.stringify(artworks, null, 2)};
+
+export const homepageArtworks = artworks
+  .filter((artwork) => artwork.featured)
+  .sort((a, b) => (a.homepageOrder ?? 0) - (b.homepageOrder ?? 0));
+
+const selectedHeroArtwork = artworks.find((artwork) => artwork.hero);
+
+if (!selectedHeroArtwork) {
+  throw new Error("Generated artwork data has no hero artwork.");
+}
+
+export const heroArtwork = selectedHeroArtwork;
 `;
 
-  const body = artworks
-    .map((a) => {
-      const imagesField =
-        a.images.length > 1
-          ? `\n    images: [\n${a.images.map((img) => `      "${img}",`).join("\n")}\n    ],`
-          : "";
+  await writeFile(OUTPUT_FILE, output, "utf8");
 
-      return `  {
-    id: ${a.id},
-    title: "${escapeString(a.title)}",
-    category: "${escapeString(a.category)}",
-    medium: "${escapeString(a.medium)}",
-    year: "${escapeString(a.year)}",
-    dimensions: "${escapeString(a.dimensions)}",
-    image: "${a.image}",${imagesField}
-    description: "${escapeString(a.description)}",
-    featured: ${a.featured},
-    availability: "${escapeString(a.availability)}",
-  }`;
-    })
-    .join(",\n");
-
-  const footer = `
-];
-`;
-
-  await writeFile(OUTPUT, header + body + footer, "utf8");
+  if (ignoredHeic.length > 0) {
+    console.warn(
+      `Ignored ${ignoredHeic.length} HEIC file(s): ${ignoredHeic.join(", ")}`,
+    );
+  }
+  if (unreferencedImages.length > 0) {
+    console.warn(
+      `Ignored ${unreferencedImages.length} web-safe image(s) not listed in artworkMetadata.js: ${unreferencedImages.join(", ")}`,
+    );
+  }
   console.log(
-    `Generated ${artworks.length} artworks from ${files.length} images → src/data/artworks.js`,
+    `Generated ${artworks.length} validated artworks → src/data/artworks.js`,
   );
 }
 
-main().catch((err) => {
-  console.error(err);
+main().catch((error) => {
+  console.error(error.message || error);
   process.exit(1);
 });

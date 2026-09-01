@@ -1,11 +1,10 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { artworks } from "../data/artworks";
+import { heroArtwork } from "../data/artworks";
 import BrandLogo from "./BrandLogo";
 import HeroTextureBackground from "./HeroTextureBackground";
 import OptimizedImage from "./OptimizedImage";
 
-const featuredArtwork = artworks.find((artwork) => artwork.title === "Shiva-Shakti") ?? artworks[0];
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function HeroSection() {
@@ -47,23 +46,26 @@ export default function HeroSection() {
           </div>
 
           <motion.div initial={{ opacity: 0, scale: 0.96, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 1.1, delay: 0.35, ease }} className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <Link to={`/portfolio/${featuredArtwork.id}`} className="group block" aria-label={`View ${featuredArtwork.title}`}>
+            <Link to={`/portfolio/${heroArtwork.slug}`} className="group block" aria-label={`View ${heroArtwork.title}`}>
               <motion.div animate={reducedMotion ? {} : { y: [0, -10, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} className="relative">
                 <div className="absolute -left-6 top-10 h-32 w-32 rounded-full border border-[#B88435]/30" />
                 <div className="absolute -right-3 -top-4 h-24 w-24 rounded-full bg-[#A75338]/10 blur-2xl" />
                 <div className="relative overflow-hidden rounded-sm border-[10px] border-[#6E5131] bg-[#6E5131] p-2 shadow-2xl shadow-[#282820]/25 md:border-[14px] md:p-3">
                   <div className="overflow-hidden rounded-sm border border-[#F7F3EB]/60">
                     <div className="aspect-[4/5] overflow-hidden sm:aspect-[3/4]">
-                      <img
-                        src={featuredArtwork.image}
-                        alt={featuredArtwork.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"/>
+                      <OptimizedImage
+                        image={heroArtwork.image}
+                        alt={heroArtwork.title}
+                        priority
+                        className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-105"
+                        sizes="(max-width: 1024px) 90vw, 45vw"
+                      />
                     </div>
                   </div>
                 </div>
                 <div className="mt-5 text-center lg:text-left">
                   <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#A75338]">On the easel · featured work</p>
-                  <p className="mt-1 font-display text-2xl text-[#282820] md:text-3xl">{featuredArtwork.title}</p>
+                  <p className="mt-1 font-display text-2xl text-[#282820] md:text-3xl">{heroArtwork.title}</p>
                 </div>
               </motion.div>
             </Link>

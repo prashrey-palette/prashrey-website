@@ -1,24 +1,11 @@
-/**
- * Production prebuild — regenerates artwork data only.
- * Image optimization (WebP) runs locally via: npm run optimize:images
- * Pre-generated WebP files in public/artworks/webp/ are committed to git.
- */
+/** Production prebuild: validate, optimize declared images, then generate exact data. */
 import { spawn } from "node:child_process";
-import { access } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const optimizeScript = join(__dirname, "optimize-images.mjs");
 const generateScript = join(__dirname, "generate-artworks.mjs");
-
-async function exists(path) {
-  try {
-    await access(path);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 function runNode(script) {
   return new Promise((resolve, reject) => {
@@ -33,13 +20,11 @@ function runNode(script) {
 }
 
 async function main() {
-  if (!(await exists(generateScript))) {
-    console.log("generate-artworks.mjs not found — using committed src/data/artworks.js");
-    return;
-  }
-
+  // Validate before spending time on image conversion, then regenerate exact paths.
   await runNode(generateScript);
-  console.log("Prebuild complete (artwork data regenerated).");
+  await runNode(optimizeScript);
+  await runNode(generateScript);
+  console.log("Prebuild complete (images optimized and artwork data regenerated).");
 }
 
 main().catch((err) => {

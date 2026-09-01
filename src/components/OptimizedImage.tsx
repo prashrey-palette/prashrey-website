@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import type { ArtworkImage } from "../types/artwork";
 
 type OptimizedImageProps = {
-  src: string;
+  image: ArtworkImage;
   alt: string;
   className?: string;
   sizes?: string;
@@ -9,30 +10,15 @@ type OptimizedImageProps = {
   objectFit?: "cover" | "contain";
 };
 
-const WIDTHS = [640, 1024, 1536] as const;
-
-function artworkBaseName(src: string) {
-  if (!src.startsWith("/artworks/")) return null;
-  const filename = decodeURIComponent(src.replace("/artworks/", ""));
-  return filename.replace(/\.[^.]+$/, "");
-}
-
-function webpSrc(base: string, width?: number) {
-  const suffix = width ? `-${width}` : "";
-  return `/artworks/webp/${base}${suffix}.webp`;
-}
-
 function markLoaded(
   img: HTMLImageElement | null,
-  setLoaded: (v: boolean) => void,
+  setLoaded: (value: boolean) => void,
 ) {
-  if (img?.complete && img.naturalWidth > 0) {
-    setLoaded(true);
-  }
+  if (img?.complete && img.naturalWidth > 0) setLoaded(true);
 }
 
 export default function OptimizedImage({
-  src,
+  image,
   alt,
   className = "",
   sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
@@ -41,76 +27,58 @@ export default function OptimizedImage({
 }: OptimizedImageProps) {
   const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
-  const [useFallback, setUseFallback] = useState(false);
-  const base = artworkBaseName(src);
+  const [useOriginal, setUseOriginal] = useState(false);
   const fitClass = objectFit === "contain" ? "object-contain" : "object-cover";
 
   useEffect(() => {
     setLoaded(false);
-    setUseFallback(false);
-  }, [src]);
+    setUseOriginal(false);
+  }, [image.src]);
 
   useEffect(() => {
     markLoaded(imgRef.current, setLoaded);
-  }, [src, useFallback]);
+  }, [image.src, useOriginal]);
 
+  const responsiveSrcSet = image.srcSet
+    ?.map(({ src, width }) => `${src} ${width}w`)
+    .join(", ");
+  const optimizedSrcSet = responsiveSrcSet || image.optimizedSrc;
+  const canUseOptimized = !useOriginal && Boolean(optimizedSrcSet);
   const imgClasses = `${fitClass} h-full w-full transition-opacity duration-300 ${
     loaded ? "opacity-100" : "opacity-0"
   } ${className}`;
 
-  const handleLoad = () => setLoaded(true);
-
-  const handleError = () => {
-    if (!useFallback) {
-      setUseFallback(true);
-      setLoaded(false);
-    }
-  };
-
-  const placeholder = !loaded && (
-    <div className="absolute inset-0 bg-[#121214]" aria-hidden />
+  const img = (
+    <img
+      ref={imgRef}
+      src={image.src}
+      alt={alt}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      fetchPriority={priority ? "high" : "auto"}
+      sizes={sizes}
+      onLoad={() => setLoaded(true)}
+      onError={() => {
+        if (canUseOptimized) {
+          setUseOriginal(true);
+          setLoaded(false);
+        }
+      }}
+      className={`relative ${imgClasses}`}
+    />
   );
-
-  if (base && !useFallback) {
-    const srcSet = WIDTHS.map((w) => `${webpSrc(base, w)} ${w}w`).join(", ");
-
-    return (
-      <div className="relative h-full w-full overflow-hidden bg-[#121214]">
-        {placeholder}
-        <picture className="block h-full w-full">
-          <source srcSet={srcSet} type="image/webp" sizes={sizes} />
-          <img
-            ref={imgRef}
-            src={src}
-            alt={alt}
-            loading={priority ? "eager" : "lazy"}
-            decoding="async"
-            fetchPriority={priority ? "high" : "auto"}
-            sizes={sizes}
-            onLoad={handleLoad}
-            onError={handleError}
-            className={`relative ${imgClasses}`}
-          />
-        </picture>
-      </div>
-    );
-  }
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#121214]">
-      {placeholder}
-      <img
-        ref={imgRef}
-        src={src}
-        alt={alt}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        fetchPriority={priority ? "high" : "auto"}
-        sizes={sizes}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={`relative ${imgClasses}`}
-      />
+      {!loaded && <div className="absolute inset-0 bg-[#121214]" aria-hidden />}
+      {canUseOptimized ? (
+        <picture className="block h-full w-full">
+          <source srcSet={optimizedSrcSet} type="image/webp" sizes={sizes} />
+          {img}
+        </picture>
+      ) : (
+        img
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { whatsappMessages, whatsappUrl } from "../utils/whatsapp";
 
 export default function ArtworkDetailPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,11 +22,11 @@ export default function ArtworkDetailPage() {
   };
 
   const artwork = useMemo(
-    () => artworks.find((a) => a.id === Number(id)),
-    [id],
+    () => artworks.find((a) => a.slug === slug || String(a.id) === slug),
+    [slug],
   );
 
-  const images = artwork?.images ?? (artwork ? [artwork.image] : []);
+  const images = artwork?.images ?? [];
   const hasMultiple = images.length > 1;
 
   usePageMeta({
@@ -36,7 +36,7 @@ export default function ArtworkDetailPage() {
 
   useEffect(() => {
     setActiveIndex(0);
-  }, [artwork?.id]);
+  }, [artwork?.slug]);
 
   if (!artwork) {
     return (
@@ -94,8 +94,8 @@ export default function ArtworkDetailPage() {
             >
               <div className="aspect-[4/5] sm:aspect-[3/4]">
                 <OptimizedImage
-                  key={images[activeIndex]}
-                  src={images[activeIndex]}
+                  key={images[activeIndex].src}
+                  image={images[activeIndex]}
                   alt={`${artwork.title} — view ${activeIndex + 1}`}
                   priority={activeIndex === 0}
                   objectFit="contain"
@@ -123,9 +123,9 @@ export default function ArtworkDetailPage() {
                     ›
                   </button>
                   <div className="flex items-center justify-center gap-2 border-t border-white/10 px-4 py-3">
-                    {images.map((src, index) => (
+                    {images.map((image, index) => (
                       <button
-                        key={src}
+                        key={image.src}
                         type="button"
                         onClick={() => setActiveIndex(index)}
                         className={`h-2 rounded-full transition-all ${

@@ -17,7 +17,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="portfolio" element={<PortfolioPage />} />
-          <Route path="portfolio/:id" element={<ArtworkDetailPage />} />
+          <Route path="portfolio/:slug" element={<ArtworkDetailPage />} />
           <Route path="commission" element={<CommissionPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
