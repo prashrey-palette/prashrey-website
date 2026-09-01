@@ -262,8 +262,8 @@ export const artworkMetadata = [
     dimensions: "12' x 10'",
     description:
       "Ras Raag captures the rhythm and joy of Radha–Krishna’s divine Raas Leela. Vibrant colours, flowing forms, and expressive movement celebrate love, music, devotion, and the timeless dance of togetherness.",
-    featured: false,
-    homepageOrder: null,
+    featured: true,
+    homepageOrder: 8,
     hero: false,
     availability: "Customisation Available",
   },
@@ -311,7 +311,7 @@ export const artworkMetadata = [
     description:
       "Shiv Ganesh beautifully portrays the sacred father–son bond between Lord Shiva and Lord Ganesha, symbolising love, protection, wisdom, and strong family connections. Created in mixed media and finished with a glossy resin coating, the artwork carries both divine presence and a meaningful message of family bonding and togetherness.",
     featured: false,
-    homepageOrder: 6,
+    homepageOrder: null,
     hero: false,
     availability: "Available",
   },
@@ -390,8 +390,8 @@ export const artworkMetadata = [
     dimensions: "3ft x 2ft",
     description:
       "The Living Valley is a textured landscape celebrating the freshness, beauty, and positive energy of nature. Its lush greenery and serene valley make it a striking statement piece for a living room, bringing a refreshing and calming presence to the space.",
-    featured: false,
-    homepageOrder: null,
+    featured: true,
+    homepageOrder: 9,
     hero: false,
     availability: "Available",
   },
@@ -422,8 +422,8 @@ export const artworkMetadata = [
     dimensions: "2.5ft x 1.5ft",
     description:
       "The Nectar Pause captures a delicate hummingbird pausing mid-flight to sip nectar from a vibrant bloom. Surrounded by lush greens, warm florals, and glistening droplets, the artwork celebrates the beauty, energy, and fleeting little moments of nature.",
-    featured: false,
-    homepageOrder: null,
+    featured: true,
+    homepageOrder: 6,
     hero: false,
     availability: "Available",
   },
